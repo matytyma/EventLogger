@@ -1,0 +1,3 @@
+# List of events to log
+# Set to [] for none
+events: []

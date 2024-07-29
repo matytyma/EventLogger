@@ -12,7 +12,7 @@ class LoggerData<T : Event>(val eventClass: Class<T>, val properties: T.() -> Li
             it.eventClass.isInstance(event)
         }.flatMap { it.getData(event) } + (event as T).properties()
         plugin.logger.info("[[ ${event.eventName}${if (event is Cancellable && event.isCancelled) " - cancelled" else ""} ]]")
-        eventProperties.forEach {  (title, value) ->
+        eventProperties.forEach { (title, value) ->
             plugin.logger.info("$title: ${value.serialize()}")
         }
     }
@@ -28,7 +28,10 @@ val loggerData = setOf(
         listOf("Resonated entities" to resonatedEntities)
     },
     LoggerData(BellRingEvent::class.java) {
-        listOf("Direction" to direction, "entity" to entity)
+        listOf(
+            "Direction" to direction,
+            "Entity" to entity
+        )
     },
 )
 

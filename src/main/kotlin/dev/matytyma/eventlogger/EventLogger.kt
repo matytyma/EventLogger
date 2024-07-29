@@ -6,13 +6,6 @@ import java.util.logging.Logger
 
 private lateinit var pluginLogger: Logger
 
-fun logEventData(event: Event, vararg data: Pair<String, Any?>) {
-    pluginLogger.info("[[ ${event.eventName}${if (event is Cancellable && event.isCancelled) " - cancelled" else ""} ]]")
-    data.forEach { (title, value) ->
-        pluginLogger.info("$title: ${value.serialize()}")
-    }
-}
-
 class EventLogger : JavaPlugin() {
     private val eventList = mutableListOf<Class<out Event>>()
 

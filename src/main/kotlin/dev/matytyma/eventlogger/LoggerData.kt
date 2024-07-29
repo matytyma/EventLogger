@@ -25,15 +25,15 @@ class GroupLoggerData<T : Event>(val eventClass: Class<T>, val properties: T.() 
 
 val loggerData = setOf(
     LoggerData(BellResonateEvent::class.java) {
-        listOf("resonatedEntities" to resonatedEntities)
+        listOf("Resonated entities" to resonatedEntities)
     },
     LoggerData(BellRingEvent::class.java) {
-        listOf("direction" to direction, "entity" to entity)
+        listOf("Direction" to direction, "entity" to entity)
     },
 )
 
 val groupLoggerData = setOf<GroupLoggerData<*>>(
     GroupLoggerData(BlockEvent::class.java) {
-        listOf("block" to block)
+        listOf("Block" to block)
     }
 )

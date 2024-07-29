@@ -8,7 +8,7 @@ class LoggerData<T : Event>(val eventClass: Class<T>, val properties: T.() -> Li
     @Suppress("UNCHECKED_CAST")
     fun logData(event: Event) {
         if (!eventClass.isInstance(event)) return
-        val eventProperties = eventGroupsData.filter {
+        val eventProperties = groupLoggerData.filter {
             it.eventClass.isInstance(event)
         }.flatMap { it.getData(event) } + (event as T).properties()
         plugin.logger.info("[[ ${event.eventName}${if (event is Cancellable && event.isCancelled) " - cancelled" else ""} ]]")
@@ -32,7 +32,7 @@ val loggerData = setOf(
     },
 )
 
-val eventGroupsData = setOf<GroupLoggerData<*>>(
+val groupLoggerData = setOf<GroupLoggerData<*>>(
     GroupLoggerData(BlockEvent::class.java) {
         listOf("block" to block)
     }

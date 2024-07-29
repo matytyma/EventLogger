@@ -1,7 +1,6 @@
 package dev.matytyma.eventlogger.command
 
 import dev.matytyma.eventlogger.plugin
-import net.kyori.adventure.text.Component
 import org.bukkit.command.*
 import org.bukkit.event.HandlerList
 
@@ -10,7 +9,7 @@ object ReloadCommand : CommandExecutor {
         plugin.loadConfig()
         plugin.registerEvents()
         HandlerList.unregisterAll(plugin)
-        sender.sendMessage(Component.text("[EventLogger] Reload complete."))
+        sender.sendMessage(plugin.mm.deserialize("${plugin.prefix} Reload complete."))
         return true
     }
 }

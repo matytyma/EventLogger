@@ -1,7 +1,7 @@
 package dev.matytyma.eventlogger
 
 import dev.matytyma.eventlogger.command.ReloadCommand
-import org.bukkit.command.*
+import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.event.*
 import org.bukkit.plugin.java.JavaPlugin
 import org.slf4j.Logger
@@ -9,6 +9,8 @@ import org.slf4j.Logger
 lateinit var plugin: EventLogger
 
 class EventLogger : JavaPlugin() {
+    val mm = MiniMessage.miniMessage()
+    val prefix = "<gray>[<gradient:#00F0a0:#00A0F0>EventLogger</gradient>]</gray>"
     lateinit var logger: Logger
     private val eventList = mutableListOf<LoggerData<*>>()
 

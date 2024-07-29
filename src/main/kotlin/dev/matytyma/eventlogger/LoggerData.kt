@@ -31,6 +31,8 @@ val loggerData = setOf(
         listOf(
             "Direction" to direction,
             "Entity" to entity
+            "Entity" to entity,
+            "Direction" to direction
         )
     },
     LoggerData(BlockBreakEvent::class.java) {

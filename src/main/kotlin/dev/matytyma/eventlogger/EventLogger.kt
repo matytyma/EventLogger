@@ -1,5 +1,7 @@
 package dev.matytyma.eventlogger
 
+import dev.matytyma.eventlogger.command.ReloadCommand
+import org.bukkit.command.*
 import org.bukkit.event.*
 import org.bukkit.plugin.java.JavaPlugin
 import org.slf4j.Logger
@@ -10,7 +12,7 @@ class EventLogger : JavaPlugin() {
     lateinit var logger: Logger
     private val eventList = mutableListOf<LoggerData<*>>()
 
-    private fun loadConfig() {
+    fun loadConfig() {
         saveDefaultConfig()
 
         config.getStringList("events").forEach { event ->
@@ -22,7 +24,7 @@ class EventLogger : JavaPlugin() {
         }
     }
 
-    private fun registerEvents() {
+    fun registerEvents() {
         val manager = server.pluginManager
         val listener = object : Listener {}
         eventList.forEach {
@@ -36,5 +38,6 @@ class EventLogger : JavaPlugin() {
         plugin = this
         loadConfig()
         registerEvents()
+        getCommand("elreload")?.setExecutor(ReloadCommand)
     }
 }

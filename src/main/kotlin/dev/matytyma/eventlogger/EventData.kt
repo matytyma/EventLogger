@@ -2,11 +2,17 @@ package dev.matytyma.eventlogger
 
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
+import org.bukkit.event.block.*
 
-class EventData<T : Event>(val eventClass: Class<T>, val logFunction: (T) -> Unit)
+class EventData<T : Event>(val eventClass: Class<T>, val logFunction: T.() -> Unit)
 
 val eventData = setOf(
-    EventData(PlayerMoveEvent::class.java) { event -> println(event) }
+    EventData(BellResonateEvent::class.java) {
+        logData("resonatedEntities" to resonatedEntities)
+    },
+    EventData(BellRingEvent::class.java) {
+        logData("direction" to direction, "entity" to entity)
+    },
 )
 
 fun Event.logData(vararg data: Pair<String, Any?>) {

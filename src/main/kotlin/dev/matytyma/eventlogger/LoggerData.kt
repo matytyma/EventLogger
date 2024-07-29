@@ -29,8 +29,6 @@ val loggerData = setOf(
     },
     LoggerData(BellRingEvent::class.java) {
         listOf(
-            "Direction" to direction,
-            "Entity" to entity
             "Entity" to entity,
             "Direction" to direction
         )
@@ -43,6 +41,15 @@ val loggerData = setOf(
     },
     LoggerData(BlockBurnEvent::class.java) {
         listOf("Igniting block" to ignitingBlock)
+    },
+    LoggerData(BlockCanBuildEvent::class.java) {
+        listOf(
+            "Player" to player,
+            "Can build" to isBuildable,
+            "Material" to material,
+            "Block data" to blockData,
+            "Hand" to hand,
+        )
     },
 )
 

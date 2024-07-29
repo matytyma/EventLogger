@@ -33,6 +33,12 @@ val loggerData = setOf(
             "Entity" to entity
         )
     },
+    LoggerData(BlockBreakEvent::class.java) {
+        listOf(
+            "Player" to player,
+            "Drop items" to isDropItems
+        )
+    },
 )
 
 val groupLoggerData = setOf<GroupLoggerData<*>>(

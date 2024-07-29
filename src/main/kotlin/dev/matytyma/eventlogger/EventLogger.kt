@@ -8,30 +8,25 @@ lateinit var plugin: EventLogger
 
 class EventLogger : JavaPlugin() {
     lateinit var logger: Logger
-    private val eventList = mutableListOf<EventData<*>>()
+    private val eventList = mutableListOf<LoggerData<*>>()
 
     private fun loadConfig() {
         saveDefaultConfig()
 
         config.getStringList("events").forEach { event ->
             try {
-                eventList += eventData.first { it.eventClass.simpleName == event }
+                eventList += loggerData.first { it.eventClass.simpleName == event }
             } catch (exception: NoSuchElementException) {
                 logger.warn("Logger for event '$event' does not exist")
             }
         }
     }
 
-    private fun <T : Event> logEvent(eventData: EventData<T>, event: Event) {
-        if (!eventData.eventClass.isInstance(event)) return
-        @Suppress("UNCHECKED_CAST") eventData.logFunction(event as T)
-    }
-
     private fun registerEvents() {
         val manager = server.pluginManager
         val listener = object : Listener {}
         eventList.forEach {
-            val executor = { _: Listener, event: Event -> logEvent(it, event) }
+            val executor = { _: Listener, event: Event -> it.logData(event) }
             manager.registerEvent(it.eventClass, listener, EventPriority.MONITOR, executor, this)
         }
     }

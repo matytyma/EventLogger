@@ -39,6 +39,9 @@ val loggerData = setOf(
             "Drop items" to isDropItems
         )
     },
+    LoggerData(BlockBurnEvent::class.java) {
+        listOf("Igniting block" to ignitingBlock)
+    },
 )
 
 val groupLoggerData = setOf<GroupLoggerData<*>>(

@@ -51,6 +51,16 @@ val loggerData = setOf(
             "Hand" to hand,
         )
     },
+    LoggerData(BlockCookEvent::class.java) {
+        listOf(
+            "Source" to source,
+            "Result" to result,
+            "Recipe" to recipe,
+        )
+    },
+    LoggerData(BlockDamageAbortEvent::class.java) {
+        listOf("Item in hand" to itemInHand)
+    },
 )
 
 val groupLoggerData = setOf<GroupLoggerData<*>>(

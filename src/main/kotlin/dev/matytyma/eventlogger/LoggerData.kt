@@ -5,25 +5,25 @@ import org.bukkit.event.Event
 import org.bukkit.event.block.*
 
 class LoggerData<T : Event>(val eventClass: Class<T>, val properties: T.() -> List<Pair<String, Any?>>) {
-    @Suppress("UNCHECKED_CAST")
     fun logData(event: Event) {
         if (!eventClass.isInstance(event)) return
-        val eventProperties = groupLoggerData.filter {
+        val eventProperties = loggerData.filter {
             it.eventClass.isInstance(event)
-        }.flatMap { it.getData(event) } + (event as T).properties()
+        }.flatMap { it.getData(event) }
         plugin.logger.info("[[ ${event.eventName}${if (event is Cancellable && event.isCancelled) " - cancelled" else ""} ]]")
         eventProperties.forEach { (title, value) ->
             plugin.logger.info("$title: ${value.serialize()}")
         }
     }
-}
 
-class GroupLoggerData<T : Event>(val eventClass: Class<T>, val properties: T.() -> List<Pair<String, Any?>>) {
     @Suppress("UNCHECKED_CAST")
-    fun getData(event: Event): List<Pair<String, Any?>> = (event as T).properties()
+    private fun getData(event: Event): List<Pair<String, Any?>> = (event as T).properties()
 }
 
 val loggerData = setOf(
+    LoggerData(BlockEvent::class.java) {
+        listOf("Block" to block)
+    },
     LoggerData(BellResonateEvent::class.java) {
         listOf("Resonated entities" to resonatedEntities)
     },
@@ -61,10 +61,4 @@ val loggerData = setOf(
     LoggerData(BlockDamageAbortEvent::class.java) {
         listOf("Item in hand" to itemInHand)
     },
-)
-
-val groupLoggerData = setOf<GroupLoggerData<*>>(
-    GroupLoggerData(BlockEvent::class.java) {
-        listOf("Block" to block)
-    }
 )

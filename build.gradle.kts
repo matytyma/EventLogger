@@ -22,7 +22,7 @@ kotlin {
 }
 
 tasks.build {
-    dependsOn("shadowJar")
+    dependsOn(tasks.shadowJar)
 }
 
 tasks.processResources {

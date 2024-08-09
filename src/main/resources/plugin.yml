@@ -7,4 +7,4 @@ author: matytyma
 commands:
   elreload:
     description: Reloads plugin configuration
-    aliases: [eventloggerreload]
+    aliases: [ eventloggerreload ]

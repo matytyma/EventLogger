@@ -61,4 +61,12 @@ val loggerData = setOf(
     LoggerData(BlockDamageAbortEvent::class.java) {
         listOf("Item in hand" to itemInHand)
     },
+    LoggerData(BlockDamageEvent::class.java) {
+        listOf(
+            "Player" to player,
+            "Item in hand" to itemInHand,
+            "Block face" to blockFace,
+            "Insta break" to instaBreak,
+        )
+    },
 )

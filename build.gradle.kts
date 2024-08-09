@@ -1,6 +1,5 @@
 plugins {
     kotlin("jvm") version "2.0.0"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 group = "dev.matytyma"
@@ -19,10 +18,6 @@ dependencies {
 val targetJavaVersion = 21
 kotlin {
     jvmToolchain(targetJavaVersion)
-}
-
-tasks.build {
-    dependsOn(tasks.shadowJar)
 }
 
 tasks.processResources {

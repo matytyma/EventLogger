@@ -4,6 +4,9 @@ main: dev.matytyma.eventlogger.EventLogger
 api-version: '1.20'
 load: STARTUP
 author: matytyma
+libraries: [
+  org.jetbrains.kotlin:kotlin-stdlib:2.0.0
+]
 commands:
   elreload:
     description: Reloads plugin configuration

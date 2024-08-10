@@ -5,14 +5,12 @@ import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.event.*
 import org.bukkit.plugin.IllegalPluginAccessException
 import org.bukkit.plugin.java.JavaPlugin
-import org.slf4j.Logger
 
 lateinit var plugin: EventLogger
 
 class EventLogger : JavaPlugin() {
     val mm = MiniMessage.miniMessage()
     val prefix = "<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray>"
-    lateinit var logger: Logger
     private val eventList = mutableListOf<LoggerData<*>>()
 
     fun loadConfig() {
@@ -22,7 +20,7 @@ class EventLogger : JavaPlugin() {
             try {
                 eventList += loggerData.first { it.eventClass.simpleName == event }
             } catch (_: NoSuchElementException) {
-                logger.warn("Logger for event '$event' does not exist")
+                slF4JLogger.warn("Logger for event '$event' does not exist")
             }
         }
     }
@@ -35,13 +33,12 @@ class EventLogger : JavaPlugin() {
             try {
                 manager.registerEvent(it.eventClass, listener, EventPriority.MONITOR, executor, this)
             } catch(_: IllegalPluginAccessException) {
-                logger.warn("Event ${it.eventClass.simpleName} is a group and thus cannot be registered")
+                slF4JLogger.warn("Event ${it.eventClass.simpleName} is a group and thus cannot be registered")
             }
         }
     }
 
     override fun onEnable() {
-        logger = slF4JLogger
         plugin = this
         loadConfig()
         registerEvents()

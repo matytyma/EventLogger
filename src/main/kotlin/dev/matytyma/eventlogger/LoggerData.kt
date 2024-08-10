@@ -83,4 +83,13 @@ val loggerData = setOf(
             "Instant break" to instaBreak,
         )
     },
+    LoggerData(BlockDispenseEvent::class.java) {
+        listOf(
+            "Item" to item,
+            "Velocity" to velocity,
+        )
+    },
+    LoggerData(BlockDispenseArmorEvent::class.java) {
+        listOf("Target entity" to targetEntity)
+    }
 )

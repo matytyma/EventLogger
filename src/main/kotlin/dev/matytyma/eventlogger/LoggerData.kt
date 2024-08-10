@@ -6,7 +6,10 @@ import org.bukkit.event.block.*
 import org.slf4j.LoggerFactory
 import kotlin.math.max
 
-open class LoggerData<T : Event>(val eventClass: Class<T>, val properties: T.() -> List<Pair<String, Any?>>) {
+open class LoggerData<T : Event>(
+    val eventClass: Class<T>,
+    val properties: T.() -> List<Pair<String, Any?>>,
+) {
     companion object {
         private val logger = LoggerFactory.getLogger("")
     }
@@ -18,8 +21,8 @@ open class LoggerData<T : Event>(val eventClass: Class<T>, val properties: T.() 
         }.flatMap { it.getData(event) }.map { it.first to it.second.serialize() }
 
         val header = "${event.eventName}${if (event is Cancellable && event.isCancelled) " - cancelled" else ""}"
-        val width = max(header.length, eventProperties.maxOf {
-            (title, value) -> title.length + value.length
+        val width = max(header.length, eventProperties.maxOf { (title, value) ->
+            title.length + value.length
         }) + 2
 
         logger.info("┏${"━".repeat((width - header.length) / 2)} $header ${"━".repeat((width - header.length + 1) / 2)}┓")
@@ -34,7 +37,10 @@ open class LoggerData<T : Event>(val eventClass: Class<T>, val properties: T.() 
     private fun getData(event: Event): List<Pair<String, Any?>> = (event as T).properties()
 }
 
-class ToplevelLoggerData<T: Event>(eventClass: Class<T>, properties: T.() -> List<Pair<String, Any?>>) : LoggerData<T>(eventClass, properties)
+class ToplevelLoggerData<T : Event>(
+    eventClass: Class<T>,
+    properties: T.() -> List<Pair<String, Any?>>,
+) : LoggerData<T>(eventClass, properties)
 
 val loggerData = setOf(
     LoggerData(BlockEvent::class.java) {

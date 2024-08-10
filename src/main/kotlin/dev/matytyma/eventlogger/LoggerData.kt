@@ -6,7 +6,7 @@ import org.bukkit.event.block.*
 import org.slf4j.LoggerFactory
 import kotlin.math.max
 
-class LoggerData<T : Event>(val eventClass: Class<T>, val properties: T.() -> List<Pair<String, Any?>>) {
+open class LoggerData<T : Event>(val eventClass: Class<T>, val properties: T.() -> List<Pair<String, Any?>>) {
     companion object {
         private val logger = LoggerFactory.getLogger("")
     }
@@ -33,6 +33,8 @@ class LoggerData<T : Event>(val eventClass: Class<T>, val properties: T.() -> Li
     @Suppress("UNCHECKED_CAST")
     private fun getData(event: Event): List<Pair<String, Any?>> = (event as T).properties()
 }
+
+class ToplevelLoggerData<T: Event>(eventClass: Class<T>, properties: T.() -> List<Pair<String, Any?>>) : LoggerData<T>(eventClass, properties)
 
 val loggerData = setOf(
     LoggerData(BlockEvent::class.java) {

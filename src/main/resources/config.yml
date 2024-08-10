@@ -1,2 +1,5 @@
+# Whether to whitelist the events list or blacklist instead
+whitelist-mode: true
+
 # List of events to log, set to [] for none
 events: []

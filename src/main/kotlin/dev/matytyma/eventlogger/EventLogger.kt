@@ -17,7 +17,7 @@ class EventLogger : JavaPlugin() {
         saveDefaultConfig()
 
         val whitelist = config.getBoolean("whitelist")
-        if (whitelist) eventSet += loggerData
+        if (!whitelist) eventSet += loggerData
 
         config.getStringList("events").forEach { event ->
             try {
@@ -36,6 +36,7 @@ class EventLogger : JavaPlugin() {
     fun registerEvents() {
         val manager = server.pluginManager
         val listener = object : Listener {}
+        println(eventSet)
         eventSet.forEach {
             val executor = { _: Listener, event: Event -> it.logData(event) }
             try {

@@ -37,10 +37,15 @@ open class LoggerData<T : Event>(
     private fun getData(event: Event): List<Pair<String, Any?>> = (event as T).properties()
 }
 
-class ToplevelLoggerData<T : Event>(
+open class GroupLoggerData<T : Event>(
     eventClass: Class<T>,
     properties: T.() -> List<Pair<String, Any?>>,
 ) : LoggerData<T>(eventClass, properties)
+
+class ToplevelLoggerData<T : Event>(
+    eventClass: Class<T>,
+    properties: T.() -> List<Pair<String, Any?>>,
+) : GroupLoggerData<T>(eventClass, properties)
 
 val loggers = setOf(
     ToplevelLoggerData(BlockEvent::class.java) {
@@ -73,7 +78,7 @@ val loggers = setOf(
             "Hand" to hand,
         )
     },
-    LoggerData(BlockCookEvent::class.java) {
+    GroupLoggerData(BlockCookEvent::class.java) {
         listOf(
             "Source" to source,
             "Result" to result,
@@ -91,13 +96,13 @@ val loggers = setOf(
             "Instant break" to instaBreak,
         )
     },
-    LoggerData(BlockDispenseEvent::class.java) {
+    LoggerData(BlockDispenseArmorEvent::class.java) {
+        listOf("Target entity" to targetEntity)
+    },
+    GroupLoggerData(BlockDispenseEvent::class.java) {
         listOf(
             "Item" to item,
             "Velocity" to velocity,
         )
-    },
-    LoggerData(BlockDispenseArmorEvent::class.java) {
-        listOf("Target entity" to targetEntity)
     }
 )

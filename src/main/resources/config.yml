@@ -1,3 +1,2 @@
-# List of events to log
-# Set to [] for none
+# List of events to log, set to [] for none
 events: []

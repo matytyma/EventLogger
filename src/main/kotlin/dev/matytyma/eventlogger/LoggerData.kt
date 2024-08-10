@@ -66,7 +66,7 @@ val loggerData = setOf(
             "Player" to player,
             "Item in hand" to itemInHand,
             "Block face" to blockFace,
-            "Insta break" to instaBreak,
+            "Instant break" to instaBreak,
         )
     },
 )

@@ -11,14 +11,22 @@ lateinit var plugin: EventLogger
 class EventLogger : JavaPlugin() {
     val mm = MiniMessage.miniMessage()
     val prefix = "<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray>"
-    private val eventList = mutableListOf<LoggerData<*>>()
+    private val eventSet = mutableSetOf<LoggerData<*>>()
 
     fun loadConfig() {
         saveDefaultConfig()
 
+        val whitelist = config.getBoolean("whitelist")
+        if (whitelist) eventSet += loggerData
+
         config.getStringList("events").forEach { event ->
             try {
-                eventList += loggerData.first { it.eventClass.simpleName == event }
+                val eventLoggerData = loggerData.first { it.eventClass.simpleName == event }
+                if (whitelist) {
+                    eventSet += eventLoggerData
+                } else {
+                    eventSet -= eventLoggerData
+                }
             } catch (_: NoSuchElementException) {
                 slF4JLogger.warn("Logger for event '$event' does not exist")
             }
@@ -28,7 +36,7 @@ class EventLogger : JavaPlugin() {
     fun registerEvents() {
         val manager = server.pluginManager
         val listener = object : Listener {}
-        eventList.forEach {
+        eventSet.forEach {
             val executor = { _: Listener, event: Event -> it.logData(event) }
             try {
                 manager.registerEvent(it.eventClass, listener, EventPriority.MONITOR, executor, this)

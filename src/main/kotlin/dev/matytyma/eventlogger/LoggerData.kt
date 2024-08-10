@@ -30,13 +30,13 @@ val loggerData = setOf(
     LoggerData(BellRingEvent::class.java) {
         listOf(
             "Entity" to entity,
-            "Direction" to direction
+            "Direction" to direction,
         )
     },
     LoggerData(BlockBreakEvent::class.java) {
         listOf(
             "Player" to player,
-            "Drop items" to isDropItems
+            "Drop items" to isDropItems,
         )
     },
     LoggerData(BlockBurnEvent::class.java) {

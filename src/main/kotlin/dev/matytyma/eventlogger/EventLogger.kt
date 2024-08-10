@@ -17,15 +17,15 @@ class EventLogger : JavaPlugin() {
         saveDefaultConfig()
 
         val whitelist = config.getBoolean("whitelist")
-        if (!whitelist) eventSet += loggerData
+        if (!whitelist) eventSet += loggers
 
         config.getStringList("events").forEach { event ->
             try {
-                val eventLoggerData = loggerData.first { it.eventClass.simpleName == event }
+                val loggerData = loggers.first { it.eventClass.simpleName == event }
                 if (whitelist) {
-                    eventSet += eventLoggerData
+                    eventSet += loggerData
                 } else {
-                    eventSet -= eventLoggerData
+                    eventSet -= loggerData
                 }
             } catch (_: NoSuchElementException) {
                 slF4JLogger.warn("Logger for event '$event' does not exist")
@@ -36,7 +36,6 @@ class EventLogger : JavaPlugin() {
     fun registerEvents() {
         val manager = server.pluginManager
         val listener = object : Listener {}
-        println(eventSet)
         eventSet.forEach {
             val executor = { _: Listener, event: Event -> it.logData(event) }
             try {

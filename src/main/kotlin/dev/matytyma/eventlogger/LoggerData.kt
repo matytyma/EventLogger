@@ -16,7 +16,7 @@ open class LoggerData<T : Event>(
 
     fun logData(event: Event) {
         if (!eventClass.isInstance(event)) return
-        val eventProperties = loggerData.filter {
+        val eventProperties = loggers.filter {
             it.eventClass.isInstance(event)
         }.flatMap { it.getData(event) }.map { it.first to it.second.serialize() }
 
@@ -42,8 +42,8 @@ class ToplevelLoggerData<T : Event>(
     properties: T.() -> List<Pair<String, Any?>>,
 ) : LoggerData<T>(eventClass, properties)
 
-val loggerData = setOf(
-    LoggerData(BlockEvent::class.java) {
+val loggers = setOf(
+    ToplevelLoggerData(BlockEvent::class.java) {
         listOf("Block" to block)
     },
     LoggerData(BellResonateEvent::class.java) {

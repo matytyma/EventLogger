@@ -32,7 +32,7 @@ class EventLogger : JavaPlugin() {
             val executor = { _: Listener, event: Event -> it.logData(event) }
             try {
                 manager.registerEvent(it.eventClass, listener, EventPriority.MONITOR, executor, this)
-            } catch(_: IllegalPluginAccessException) {
+            } catch (_: IllegalPluginAccessException) {
                 slF4JLogger.warn("Event ${it.eventClass.simpleName} is a group and thus cannot be registered")
             }
         }

@@ -1,17 +1,32 @@
 package dev.matytyma.eventlogger
 
-import org.bukkit.*
+import org.bukkit.Location
+import org.bukkit.World
 import org.bukkit.block.Block
 import org.bukkit.entity.Player
 
-fun Any?.serialize(): String = when (this) {
-    is Block -> "Block(position=[$x, $y, $z], type=${type.serialize()}, data=$blockData)"
-    is Location -> "Location(world=${world.serialize()}, x=$x, y=$y, z=$z, yaw=$yaw, pitch=$pitch)"
-    is Material -> "Material.$name"
-    is Player -> "Player(name=$name, id=$uniqueId)"
-    is World -> "World(name=$name)"
-    else -> this.toString()
+// Direction
+// BlockData
+// ItemStack
+// CookingRecipe
+
+fun Any?.serialize(): String {
+    val properties: List<Pair<String, Any?>> = when (this) {
+        is Block -> listOf("position" to listOf(x, y, z), "type" to type, "data" to blockData)
+        is Location -> listOf("world" to world, "position" to listOf(x, y, z), "yaw" to yaw, "pitch" to pitch)
+        is Player -> listOf("name" to name, "id" to uniqueId)
+        is World -> listOf("name" to name)
+        else -> emptyList()
+    }
+    return if (properties.isEmpty()) toString() else this!!.formatClass(properties)
 }
+
+private fun Any.formatClass(properties: List<Pair<String, Any?>>) = "${javaClass.simpleName}${
+    properties.joinToString(
+        separator = ", ", prefix = "(", postfix = ")"
+    ) { (name, value) -> "$name=${value.formatValue()}" }
+}"
+
 private fun Any?.formatValue(): String = when (this) {
     is Number -> toString()
     is CharSequence -> toString()

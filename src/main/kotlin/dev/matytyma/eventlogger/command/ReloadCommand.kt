@@ -1,6 +1,7 @@
 package dev.matytyma.eventlogger.command
 
 import dev.matytyma.eventlogger.plugin
+import dev.matytyma.eventlogger.sendPrefixedMessage
 import org.bukkit.command.*
 import org.bukkit.event.HandlerList
 
@@ -9,7 +10,7 @@ object ReloadCommand : CommandExecutor {
         plugin.loadConfig()
         plugin.registerEvents()
         HandlerList.unregisterAll(plugin)
-        sender.sendMessage(plugin.mm.deserialize("${plugin.prefix} Reload complete."))
+        sender.sendPrefixedMessage("Reload complete.")
         return true
     }
 }

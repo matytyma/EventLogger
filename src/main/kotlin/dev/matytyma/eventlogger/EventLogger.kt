@@ -10,7 +10,7 @@ lateinit var plugin: EventLogger
 
 class EventLogger : JavaPlugin() {
     val mm = MiniMessage.miniMessage()
-    val prefix = "<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray>"
+    val prefix = mm.deserialize("<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray> ")
     private var eventSet = setOf<LoggerData<*>>()
 
     fun loadConfig() {

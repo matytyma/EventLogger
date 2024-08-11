@@ -104,5 +104,12 @@ val loggers = setOf(
             "Item" to item,
             "Velocity" to velocity,
         )
+    },
+    LoggerData(BlockDropItemEvent::class.java) {
+        listOf(
+            "Player" to player,
+            "Items" to items,
+            "Block state" to blockState,
+        )
     }
 )

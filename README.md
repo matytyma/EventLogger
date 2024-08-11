@@ -9,6 +9,21 @@ Either download a prebuilt JAR from [releases](https://github.com/matytyma/Event
 
 `events` - List of `Event` class names  be logged/excluded from logging
 
+`format` - Formatting options to style the generated output
+<details>
+    <summary>Visual representation of formatting options</summary>
+
+    Block(position=[109, 97, 5871], type=Material.BEDROCK, data=BlockData(data=minecraft:bedrock))
+         ^         ^       ^^    ^      ^                ^^                                      ^
+         |         |       |     |      |                |                                       |
+         |         |       |     |      |                - class.separator         class.postfix -
+         |         |       |     |      - field.separator
+         |         |       |     - array.postfix
+         |         |       - array.separator
+         |         - array.prefix
+         - class.prefix
+</details>
+
 ### Examples
 Log all block-related events
 ```yaml

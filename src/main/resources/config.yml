@@ -2,4 +2,6 @@
 whitelist: true
 
 # List of events to log, set to [] for none
-events: []
+events: [
+
+]

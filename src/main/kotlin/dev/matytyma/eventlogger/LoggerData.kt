@@ -15,7 +15,9 @@ open class LoggerData<T : Event>(
     }
 
     fun logData(event: Event) {
-        if (!eventClass.isInstance(event)) return
+        if (!eventClass.isInstance(event)) {
+            throw IllegalArgumentException("Event ${event.eventName} could not be passed to logger for ${eventClass.simpleName}")
+        }
         val eventProperties = loggers.filter {
             it.eventClass.isInstance(event)
         }.flatMap { it.getData(event) }.map { it.first to it.second.serialize() }

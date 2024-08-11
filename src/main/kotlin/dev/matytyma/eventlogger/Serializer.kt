@@ -22,7 +22,7 @@ fun Any?.serialize(): String {
     return if (properties.isEmpty()) toString() else this!!.formatClass(properties)
 }
 
-private fun Any.formatClass(properties: List<Pair<String, Any?>>) = "${javaClass.simpleName}${
+private fun Any.formatClass(properties: List<Pair<String, Any?>>) = "${javaClass.alteredName}${
     properties.joinToString(
         separator = ", ", prefix = "(", postfix = ")"
     ) { (name, value) -> "$name=${value.formatValue()}" }
@@ -42,6 +42,9 @@ private fun Any?.formatValue(): String = when (this) {
     is FloatArray -> joinToString(", ", "[", "]")
     is DoubleArray -> joinToString(", ", "[", "]")
     is BooleanArray -> joinToString(", ", "[", "]")
-    is Enum<*> -> "${javaClass.simpleName}.$name"
+    is Enum<*> -> "${javaClass.alteredName}.$name"
     else -> serialize()
 }
+
+private val Class<*>.alteredName: String
+    get () = if (packageName.startsWith("org.bukkit")) simpleName.removePrefix("Craft") else simpleName

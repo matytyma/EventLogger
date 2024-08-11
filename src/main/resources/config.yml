@@ -1,6 +1,21 @@
 # Whether to whitelist the events list or blacklist instead
 whitelist: true
 
+format:
+  class:
+    # If set to true, Bukkit classes implementations prefixed with 'Craft' will
+    # have the prefix removed
+    alterNames: true
+    separator: ', '
+    prefix: '('
+    postfix: ')'
+  array:
+    separator: ', '
+    prefix: '['
+    postfix: ']'
+  field:
+    separator: '='
+
 # List of events to log, set to [] for none
 events: [
 

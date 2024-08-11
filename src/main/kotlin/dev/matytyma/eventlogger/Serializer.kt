@@ -5,11 +5,6 @@ import org.bukkit.World
 import org.bukkit.block.Block
 import org.bukkit.entity.Player
 
-// Direction
-// BlockData
-// ItemStack
-// CookingRecipe
-
 fun Any?.serialize(): String {
     val properties: List<Pair<String, Any?>> = when (this) {
         is Block -> listOf("position" to listOf(x, y, z), "type" to type, "data" to blockData)

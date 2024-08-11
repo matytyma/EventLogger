@@ -21,8 +21,8 @@ class EventLogger : JavaPlugin() {
                 val loggerData = loggers.first { it.eventClass.simpleName == event }
                 if (loggerData is GroupLoggerData) {
                     eventSet += loggers.filter {
-                        loggerData.eventClass.isInstance(it)
-                    }
+                        loggerData.eventClass.isAssignableFrom(it.eventClass)
+                    } - loggerData
                 }
                 if (loggerData !is ToplevelLoggerData) {
                     eventSet += loggerData

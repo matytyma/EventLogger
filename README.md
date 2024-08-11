@@ -2,7 +2,9 @@
 Minecraft plugin for inspecting data of events that occur
 
 ## Configuration
-Add a list of events to be logged should be added to `events` property in `config.yml` file.
+`whitelist` - Whether to log just `events` or the rest instead
+
+`events` - List of `Event` class names  be logged/excluded from logging
 
 ### Examples
 Log all block-related events

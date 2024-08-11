@@ -35,22 +35,6 @@ class EventLogger : JavaPlugin() {
         if (!config.getBoolean("whitelist")) {
             eventSet = (loggers - eventSet).filterNot { it is ToplevelLoggerData }.toSet()
         }
-        println("""
-Block(position=[109, 97, 5871], type=Material.BEDROCK, data=BlockData(data=minecraft:bedrock))
-     ^         ^       ^^    ^      ^                ^^                                      ^
-     |         |       ||    |      |                ||                                      |
-     |         |       ||    |      |                - class.separator         class.postfix -
-     |         |       ||    |      |
-     |         |       ||    |      - field.separator
-     |         |       ||    |
-     |         |       ||    - array.postfix
-     |         |       ||
-     |         |       - array.separator
-     |         |
-     |         - array.prefix
-     |
-     - class.prefix
-        """.trimIndent())
     }
 
     fun registerEvents() {

@@ -1,6 +1,17 @@
 # Whether to whitelist the events list or blacklist instead
 whitelist: true
 
+# Visual representation of the formatting options:
+
+# Block(position=[109, 97, 5871], type=Material.BEDROCK, data=BlockData(data=minecraft:bedrock))
+#      ^         ^       ^^    ^      ^                ^^                                      ^
+#      |         |       |     |      |                |                                       |
+#      |         |       |     |      |                - class.separator         class.postfix -
+#      |         |       |     |      - field.separator
+#      |         |       |     - array.postfix
+#      |         |       - array.separator
+#      |         - array.prefix
+#      - class.prefix
 format:
   class:
     # If set to true, Bukkit classes implementations prefixed with 'Craft' will

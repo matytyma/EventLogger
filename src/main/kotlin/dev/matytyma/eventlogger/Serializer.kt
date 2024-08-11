@@ -3,7 +3,10 @@ package dev.matytyma.eventlogger
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.block.Block
+import org.bukkit.block.data.BlockData
+import org.bukkit.entity.Item
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 
 fun Any?.serialize(): String {
     val properties: List<Pair<String, Any?>> = when (this) {
@@ -11,6 +14,9 @@ fun Any?.serialize(): String {
         is Location -> listOf("world" to world, "position" to listOf(x, y, z), "yaw" to yaw, "pitch" to pitch)
         is Player -> listOf("name" to name, "id" to uniqueId)
         is World -> listOf("name" to name)
+        is BlockData -> listOf("data" to getAsString(true))
+        is ItemStack -> listOf("type" to type, "amount" to amount, "meta" to itemMeta)
+        is Item -> listOf("location" to location, "stack" to itemStack)
         else -> emptyList()
     }
     return if (properties.isEmpty()) toString() else this!!.formatClass(properties)

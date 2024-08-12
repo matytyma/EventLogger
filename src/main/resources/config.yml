@@ -1,12 +1,17 @@
+# List of events to log, set to [] for none
+events: [
+
+]
+
+# Whether to whitelist the 'events' list or blacklist instead
+whitelist: true
+
 prefix:
   # MiniMessage-styled text, for more informations see https://docs.advntr.dev/minimessage/format.html
   # and for preview https://webui.advntr.dev, sed for all kinds of plugin output except for event logging
   general: '<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray> '
   # Plaintext, used for event logging, empty by default to fit wider event logs
   logging: ''
-
-# Whether to whitelist the 'events' list or blacklist instead
-whitelist: true
 
 # Visual representation of the formatting options:
 
@@ -33,8 +38,3 @@ format:
     postfix: ']'
   field:
     separator: '='
-
-# List of events to log, set to [] for none
-events: [
-
-]

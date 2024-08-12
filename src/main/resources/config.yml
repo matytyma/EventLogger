@@ -32,12 +32,12 @@ format:
     # If set to true, Bukkit classes implementations prefixed with 'Craft' will
     # have the prefix removed
     alterNames: true
-    separator: ', '
     prefix: '('
+    separator: ', '
     postfix: ')'
   array:
-    separator: ', '
     prefix: '['
+    separator: ', '
     postfix: ']'
   field:
     separator: '='

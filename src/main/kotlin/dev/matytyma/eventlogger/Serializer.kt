@@ -3,6 +3,10 @@ package dev.matytyma.eventlogger
 import dev.matytyma.eventlogger.Config.arrayPostfix
 import dev.matytyma.eventlogger.Config.arrayPrefix
 import dev.matytyma.eventlogger.Config.arraySeparator
+import dev.matytyma.eventlogger.Config.classPostfix
+import dev.matytyma.eventlogger.Config.classPrefix
+import dev.matytyma.eventlogger.Config.classSeparator
+import dev.matytyma.eventlogger.Config.fieldSeparator
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.block.Block
@@ -27,8 +31,8 @@ fun Any?.serialize(): String {
 
 private fun Any.formatClass(properties: List<Pair<String, Any?>>) = "${javaClass.alteredName}${
     properties.joinToString(
-        separator = ", ", prefix = "(", postfix = ")"
-    ) { (name, value) -> "$name=${value.formatValue()}" }
+        separator = classSeparator, prefix = classPrefix, postfix = classPostfix
+    ) { (name, value) -> "$name$fieldSeparator${value.formatValue()}" }
 }"
 
 private fun Any?.formatValue(): String = when (this) {

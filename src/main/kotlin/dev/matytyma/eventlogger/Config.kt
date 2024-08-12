@@ -11,7 +11,7 @@ object Config {
 
     lateinit var prefix: Component
     lateinit var logger: Logger
-    var whitelist: Boolean by Delegates.notNull()
+    private var whitelist: Boolean by Delegates.notNull()
     lateinit var events: Set<LoggerData<*>>
 
     var alterClassNames: Boolean by Delegates.notNull()

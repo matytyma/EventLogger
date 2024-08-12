@@ -11,12 +11,11 @@ lateinit var plugin: EventLogger
 class EventLogger : JavaPlugin() {
     val mm = MiniMessage.miniMessage()
     val prefix = mm.deserialize("<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray> ")
-    private var eventSet = setOf<LoggerData<*>>()
 
     fun registerEvents() {
         val manager = server.pluginManager
         val listener = object : Listener {}
-        eventSet.forEach {
+        Config.events.forEach {
             val executor = { _: Listener, event: Event -> it.logData(event) }
             try {
                 manager.registerEvent(it.eventClass, listener, EventPriority.MONITOR, executor, this)

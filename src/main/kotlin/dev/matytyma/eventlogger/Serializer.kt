@@ -1,5 +1,8 @@
 package dev.matytyma.eventlogger
 
+import dev.matytyma.eventlogger.Config.arrayPostfix
+import dev.matytyma.eventlogger.Config.arrayPrefix
+import dev.matytyma.eventlogger.Config.arraySeparator
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.block.Block
@@ -32,19 +35,19 @@ private fun Any?.formatValue(): String = when (this) {
     is Number -> toString()
     is CharSequence -> toString()
     is Boolean -> toString()
-    is Collection<*> -> joinToString(", ", "[", "]") { it.formatValue() }
-    is Array<*> -> joinToString(", ", "[", "]") { it.formatValue() }
-    is ByteArray -> joinToString(", ", "[", "]")
-    is CharArray -> joinToString(", ", "[", "]")
-    is ShortArray -> joinToString(", ", "[", "]")
-    is IntArray -> joinToString(", ", "[", "]")
-    is LongArray -> joinToString(", ", "[", "]")
-    is FloatArray -> joinToString(", ", "[", "]")
-    is DoubleArray -> joinToString(", ", "[", "]")
-    is BooleanArray -> joinToString(", ", "[", "]")
+    is Collection<*> -> joinToString(arraySeparator, arrayPrefix, arrayPostfix) { it.formatValue() }
+    is Array<*> -> joinToString(arraySeparator, arrayPrefix, arrayPostfix) { it.formatValue() }
+    is ByteArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
+    is CharArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
+    is ShortArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
+    is IntArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
+    is LongArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
+    is FloatArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
+    is DoubleArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
+    is BooleanArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
     is Enum<*> -> "${javaClass.alteredName}.$name"
     else -> serialize()
 }
 
 private val Class<*>.alteredName: String
-    get () = if (packageName.startsWith("org.bukkit")) simpleName.removePrefix("Craft") else simpleName
+    get() = if (Config.alterClassNames && packageName.startsWith("org.bukkit")) simpleName.removePrefix("Craft") else simpleName

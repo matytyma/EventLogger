@@ -1,19 +1,15 @@
 package dev.matytyma.eventlogger
 
+import dev.matytyma.eventlogger.Config.logger
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.block.*
-import org.slf4j.LoggerFactory
 import kotlin.math.max
 
 open class LoggerData<T : Event>(
     val eventClass: Class<T>,
     val properties: T.() -> List<Pair<String, Any?>>,
 ) {
-    companion object {
-        private val logger = LoggerFactory.getLogger("")
-    }
-
     fun logData(event: Event) {
         if (!eventClass.isInstance(event)) {
             throw IllegalArgumentException("Event ${event.eventName} could not be passed to logger for ${eventClass.simpleName}")

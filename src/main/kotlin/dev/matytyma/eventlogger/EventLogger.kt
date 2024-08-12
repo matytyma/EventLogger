@@ -8,10 +8,9 @@ import org.bukkit.plugin.java.JavaPlugin
 
 lateinit var plugin: EventLogger
 
-class EventLogger : JavaPlugin() {
-    val mm = MiniMessage.miniMessage()
-    val prefix = mm.deserialize("<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray> ")
+val mm = MiniMessage.miniMessage()
 
+class EventLogger : JavaPlugin() {
     fun registerEvents() {
         val manager = server.pluginManager
         val listener = object : Listener {}

@@ -1,10 +1,15 @@
 package dev.matytyma.eventlogger
 
+import net.kyori.adventure.text.Component
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import kotlin.properties.Delegates
 
 object Config {
     private val config = plugin.config
 
+    lateinit var prefix: Component
+    lateinit var logger: Logger
     var whitelist: Boolean by Delegates.notNull()
     lateinit var events: Set<LoggerData<*>>
 
@@ -23,6 +28,8 @@ object Config {
         plugin.saveDefaultConfig()
         plugin.reloadConfig()
 
+        prefix = mm.deserialize(config.getString("prefix.general") ?: "<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray> ")
+        logger = LoggerFactory.getLogger(config.getString("prefix.logging"))
         whitelist = config.getBoolean("whitelist")
         events = config.getStringList("events").flatMap { event ->
             buildList {

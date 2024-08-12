@@ -1,6 +1,5 @@
 package dev.matytyma.eventlogger
 
-import dev.matytyma.eventlogger.command.Config
 import dev.matytyma.eventlogger.command.ReloadCommand
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.event.*

@@ -1,6 +1,5 @@
-package dev.matytyma.eventlogger.command
+package dev.matytyma.eventlogger
 
-import dev.matytyma.eventlogger.*
 import kotlin.properties.Delegates
 
 object Config {

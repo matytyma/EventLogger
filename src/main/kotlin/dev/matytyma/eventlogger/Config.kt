@@ -1,6 +1,7 @@
 package dev.matytyma.eventlogger
 
 import net.kyori.adventure.text.Component
+import org.bukkit.configuration.ConfigurationSection
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import kotlin.properties.Delegates
@@ -24,11 +25,22 @@ object Config {
 
     lateinit var fieldSeparator: String
 
+    var topLeftBorder: Char by Delegates.notNull()
+    var topBorder: Char by Delegates.notNull()
+    var topRightBorder: Char by Delegates.notNull()
+    var leftBorder: Char by Delegates.notNull()
+    var rightBorder: Char by Delegates.notNull()
+    var bottomLeftBorder: Char by Delegates.notNull()
+    var bottomBorder: Char by Delegates.notNull()
+    var bottomRightBorder: Char by Delegates.notNull()
+
     fun loadConfig() {
         plugin.saveDefaultConfig()
         plugin.reloadConfig()
 
-        prefix = mm.deserialize(config.getString("prefix.general") ?: "<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray> ")
+        prefix = mm.deserialize(
+            config.getString("prefix.general") ?: "<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray> "
+        )
         logger = LoggerFactory.getLogger(config.getString("prefix.logging"))
         whitelist = config.getBoolean("whitelist")
         events = config.getStringList("events").flatMap { event ->
@@ -65,5 +77,22 @@ object Config {
         arrayPostfix = arrayFormat?.getString("postfix") ?: "]"
 
         fieldSeparator = format?.getString("field.separator") ?: "="
+
+        val border = format?.getConfigurationSection("border")
+        topLeftBorder = border?.getChar("top-left") ?: '┏'
+        topBorder = border?.getChar("top") ?: '━'
+        topRightBorder = border?.getChar("top-right") ?: '┓'
+        leftBorder = border?.getChar("left") ?: '┃'
+        rightBorder = border?.getChar("right") ?: '┃'
+        bottomLeftBorder = border?.getChar("bottom-left") ?: '┗'
+        bottomBorder = border?.getChar("bottom") ?: '━'
+        bottomRightBorder = border?.getChar("bottom-right") ?: '┛'
+    }
+}
+
+fun ConfigurationSection.getChar(path: String): Char? = getString(path).let {
+    if (it?.length == 1) it[0] else {
+        plugin.slF4JLogger.warn("Path '${this.currentPath}.$path' does not contain a single character")
+        null
     }
 }

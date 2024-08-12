@@ -43,11 +43,11 @@ format:
     separator: '='
   # Border to draw about each event log, https://wikipedia.org/wiki/Box-drawing_characters is a great go-to
   border:
-    left-top: '┏'
+    top-left: '┏'
     top: '━'
-    right-top: '┓'
+    top-right: '┓'
     left: '┃'
     right: '┃'
-    left-bottom: '┗'
+    bottom-left: '┗'
     bottom: '━'
-    right-bottom: '┛'
+    bottom-right: '┛'

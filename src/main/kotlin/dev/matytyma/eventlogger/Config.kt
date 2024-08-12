@@ -1,7 +1,6 @@
 package dev.matytyma.eventlogger
 
 import net.kyori.adventure.text.Component
-import org.bukkit.configuration.ConfigurationSection
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import kotlin.properties.Delegates
@@ -89,4 +88,3 @@ object Config {
         bottomRightBorder = border?.getChar("bottom-right") ?: '┛'
     }
 }
-

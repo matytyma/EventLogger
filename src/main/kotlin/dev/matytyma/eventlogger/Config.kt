@@ -55,7 +55,7 @@ object Config {
                     if (loggerData !is ToplevelLoggerData) {
                         add(loggerData)
                     }
-                }.onFailure { plugin.slF4JLogger.warn("Logger for event '$event' does not exist") }
+                }.onFailure { plugin.slF4JLogger.warn("Logger for event '$event' does not exist, is it spelled right?") }
             }
         }.let { events ->
             return@let if (!config.getBoolean("whitelist")) {

@@ -90,9 +90,3 @@ object Config {
     }
 }
 
-fun ConfigurationSection.getChar(path: String): Char? = getString(path).let {
-    if (it?.length == 1) it[0] else {
-        plugin.slF4JLogger.warn("Path '${this.currentPath}.$path' does not contain a single character")
-        null
-    }
-}

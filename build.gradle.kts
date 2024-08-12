@@ -16,6 +16,7 @@ dependencies {
 }
 
 val targetJavaVersion = 21
+
 kotlin {
     jvmToolchain(targetJavaVersion)
 }

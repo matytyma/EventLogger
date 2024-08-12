@@ -1,7 +1,10 @@
 package dev.matytyma.eventlogger
 
+import dev.matytyma.eventlogger.command.MainCommand
 import dev.matytyma.eventlogger.command.ReloadCommand
 import net.kyori.adventure.text.minimessage.MiniMessage
+import org.bukkit.command.CommandExecutor
+import org.bukkit.command.TabExecutor
 import org.bukkit.event.*
 import org.bukkit.plugin.IllegalPluginAccessException
 import org.bukkit.plugin.java.JavaPlugin
@@ -11,6 +14,11 @@ lateinit var plugin: EventLogger
 val mm = MiniMessage.miniMessage()
 
 class EventLogger : JavaPlugin() {
+    val commands: Map<String, CommandExecutor> = mapOf(
+        "eventlogger" to MainCommand,
+        "eventloggerreload" to ReloadCommand,
+    )
+
     fun registerEvents() {
         val manager = server.pluginManager
         val listener = object : Listener {}
@@ -24,10 +32,17 @@ class EventLogger : JavaPlugin() {
         }
     }
 
+    private fun registerCommand() = commands.forEach { (name, executor) ->
+        getCommand(name)?.setExecutor(executor)
+        if (executor is TabExecutor) {
+            getCommand(name)?.tabCompleter = executor
+        }
+    }
+
     override fun onEnable() {
         plugin = this
         Config.loadConfig()
         registerEvents()
-        getCommand("elreload")?.setExecutor(ReloadCommand)
+        registerCommand()
     }
 }

@@ -8,6 +8,9 @@ libraries: [
   org.jetbrains.kotlin:kotlin-stdlib:2.0.0
 ]
 commands:
-  elreload:
+  eventlogger:
+    description: Main command for EventLogger
+    aliases: [ el ]
+  eventloggerreload:
     description: Reloads plugin configuration
-    aliases: [ eventloggerreload ]
+    aliases: [ elreload ]

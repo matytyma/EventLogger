@@ -41,3 +41,13 @@ format:
     postfix: ']'
   field:
     separator: '='
+  # Border to draw about each event log, https://wikipedia.org/wiki/Box-drawing_characters is a great go-to
+  border:
+    left-top: '┏'
+    top: '━'
+    right-top: '┓'
+    left: '┃'
+    right: '┃'
+    left-bottom: '┗'
+    bottom: '━'
+    right-bottom: '┛'

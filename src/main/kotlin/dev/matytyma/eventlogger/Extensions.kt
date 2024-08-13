@@ -5,7 +5,7 @@ import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
 import org.bukkit.configuration.ConfigurationSection
 
-fun Char.repeat(n: Int) = toString().repeat(n)
+fun Char.repeat(n: Int): String = toString().repeat(n)
 
 fun Audience.sendPrefixedMessage(s: String) = sendPrefixedMessage(mm.deserialize(s))
 

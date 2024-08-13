@@ -6,9 +6,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.TabExecutor
 import org.bukkit.event.*
-import org.bukkit.plugin.EventExecutor
-import org.bukkit.plugin.IllegalPluginAccessException
-import org.bukkit.plugin.PluginManager
+import org.bukkit.plugin.*
 import org.bukkit.plugin.java.JavaPlugin
 
 lateinit var plugin: EventLogger

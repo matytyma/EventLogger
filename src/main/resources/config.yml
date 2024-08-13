@@ -13,8 +13,7 @@ prefix:
   # Plaintext, used for event logging, empty by default to fit wider event logs
   logging: ''
 
-# <editor-fold desc="Visual representation of some formatting options" defaultstate="collapsed">
-
+# Visual representation of some formatting options:
 # Block(position=[109, 97, 5871], type=Material.BEDROCK, data=BlockData(data=minecraft:bedrock))
 #      ^         ^       ^^    ^      ^                ^^                                      ^
 #      |         |       |     |      |                |                                       |
@@ -24,9 +23,6 @@ prefix:
 #      |         |       - array.separator
 #      |         - array.prefix
 #      - class.prefix
-
-# </editor-fold>
-
 format:
   class:
     # If set to true, Bukkit classes implementations prefixed with 'Craft' will

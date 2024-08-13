@@ -29,10 +29,10 @@ fun Any?.serialize(): String {
     return if (properties.isEmpty()) toString() else this!!.formatClass(properties)
 }
 
-private fun Any.formatClass(properties: List<Pair<String, Any?>>) = "${javaClass.alteredName}${
+private fun Any.formatClass(properties: List<Pair<String, Any?>>): String = "${javaClass.alteredName}${
     properties.joinToString(
         separator = classSeparator, prefix = classPrefix, postfix = classPostfix
-    ) { (name, value) -> "$name$fieldSeparator${value.formatValue()}" }
+    ) { (name: String, value: Any?) -> "$name$fieldSeparator${value.formatValue()}" }
 }"
 
 private fun Any?.formatValue(): String = when (this) {
@@ -54,4 +54,6 @@ private fun Any?.formatValue(): String = when (this) {
 }
 
 private val Class<*>.alteredName: String
-    get() = if (Config.alterClassNames && packageName.startsWith("org.bukkit")) simpleName.removePrefix("Craft") else simpleName
+    get() = if (Config.alterClassNames && packageName.startsWith("org.bukkit")) {
+        simpleName.removePrefix("Craft")
+    } else simpleName

@@ -1,12 +1,16 @@
 package dev.matytyma.eventlogger
 
 import net.kyori.adventure.text.Component
+import org.bukkit.configuration.Configuration
+import org.bukkit.configuration.ConfigurationSection
+import org.bukkit.event.Event
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import kotlin.properties.Delegates
 
 object Config {
-    private val config = plugin.config
+    // region Configuration variables
+    private val config: Configuration = plugin.config
 
     lateinit var prefix: Component
     lateinit var logger: Logger
@@ -32,20 +36,18 @@ object Config {
     var bottomLeftBorder: Char by Delegates.notNull()
     var bottomBorder: Char by Delegates.notNull()
     var bottomRightBorder: Char by Delegates.notNull()
+    // endregion
 
     fun loadConfig() {
         plugin.saveDefaultConfig()
         plugin.reloadConfig()
-
-        prefix = mm.deserialize(
-            config.getString("prefix.general") ?: "<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray> "
-        )
+        prefix = mm.deserialize(config.getString("prefix.general") ?: "[EventLogger] ")
         logger = LoggerFactory.getLogger(config.getString("prefix.logging"))
         whitelist = config.getBoolean("whitelist")
-        events = config.getStringList("events").flatMap { event ->
+        events = config.getStringList("events").flatMap { event: String ->
             buildList {
-                runCatching {
-                    val loggerData = loggers.first { it.eventClass.simpleName == event }
+                try {
+                    val loggerData: LoggerData<*> = loggers.first { it.eventClass.simpleName == event }
                     if (loggerData is GroupLoggerData) {
                         addAll(loggers.filter {
                             loggerData.eventClass.isAssignableFrom(it.eventClass)
@@ -54,30 +56,32 @@ object Config {
                     if (loggerData !is ToplevelLoggerData) {
                         add(loggerData)
                     }
-                }.onFailure { plugin.slF4JLogger.warn("Logger for event '$event' does not exist, is it spelled right?") }
+                } catch (_: Throwable) {
+                    plugin.slF4JLogger.warn("Logger for event '$event' does not exist, is it spelled right?")
+                }
             }
-        }.let { events ->
+        }.let { events: List<LoggerData<out Event>> ->
             if (!config.getBoolean("whitelist")) {
                 (loggers - events.toSet()).filterNot { it is ToplevelLoggerData<*> }
             } else events
         }.toSet()
 
-        val format = config.getConfigurationSection("format")
+        val format: ConfigurationSection? = config.getConfigurationSection("format")
 
-        val classFormat = format?.getConfigurationSection("class")
+        val classFormat: ConfigurationSection? = format?.getConfigurationSection("class")
         alterClassNames = classFormat?.getBoolean("alterNames") ?: true
         classSeparator = classFormat?.getString("separator") ?: ", "
         classPrefix = classFormat?.getString("prefix") ?: "("
         classPostfix = classFormat?.getString("postfix") ?: ")"
 
-        val arrayFormat = format?.getConfigurationSection("array")
+        val arrayFormat: ConfigurationSection? = format?.getConfigurationSection("array")
         arraySeparator = arrayFormat?.getString("separator") ?: ", "
         arrayPrefix = arrayFormat?.getString("prefix") ?: "["
         arrayPostfix = arrayFormat?.getString("postfix") ?: "]"
 
         fieldSeparator = format?.getString("field.separator") ?: "="
 
-        val border = format?.getConfigurationSection("border")
+        val border: ConfigurationSection? = format?.getConfigurationSection("border")
         topLeftBorder = border?.getChar("top-left") ?: '┏'
         topBorder = border?.getChar("top") ?: '━'
         topRightBorder = border?.getChar("top-right") ?: '┓'

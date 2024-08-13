@@ -117,5 +117,26 @@ val loggers = setOf(
             "Items" to items,
             "Block state" to blockState,
         )
-    }
+    },
+    GroupLoggerData(BlockExpEvent::class.java) {
+        listOf("Exp to drop" to expToDrop)
+    },
+    LoggerData(BlockExplodeEvent::class.java) {
+        listOf(
+            "Affected blocks" to blockList(),
+            "Exploded block state" to explodedBlockState,
+            // TODO: uncomment once `ExplosionResult` is stable
+            // "Explosion result" to explosionResult,
+            "Yield" to yield,
+        )
+    },
+    LoggerData(BlockFadeEvent::class.java) {
+        listOf("New state" to newState)
+    },
+    LoggerData(BlockFertilizeEvent::class.java) {
+        listOf(
+            "Player" to player,
+            "Affected blocks" to blocks,
+        )
+    },
 )

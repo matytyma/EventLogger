@@ -54,7 +54,7 @@ class ToplevelLoggerData<T : Event>(
 ) : GroupLoggerData<T>(eventClass, properties)
 
 val loggers = setOf(
-    // <editor-fold desc="Block events">
+    // region Block events
     ToplevelLoggerData(BlockEvent::class.java) {
         listOf("Block" to block)
     },
@@ -97,7 +97,7 @@ val loggers = setOf(
             "Instant break" to instaBreak,
         )
     },
-    //<editor-fold desc="BlockDispenseEvent">
+    // region BlockDispenseEvent
     GroupLoggerData(BlockDispenseEvent::class.java) {
         listOf(
             "Item" to item,
@@ -107,7 +107,7 @@ val loggers = setOf(
     LoggerData(BlockDispenseArmorEvent::class.java) {
         listOf("Target entity" to targetEntity)
     },
-    //</editor-fold>
+    // endregion
     LoggerData(BlockDropItemEvent::class.java) {
         listOf(
             "Player" to player,
@@ -115,7 +115,7 @@ val loggers = setOf(
             "Block state" to blockState,
         )
     },
-    // <editor-fold desc="BlockExpEvent">
+    // region BlockExpEvent
     GroupLoggerData(BlockExpEvent::class.java) {
         listOf("Exp to drop" to expToDrop)
     },
@@ -125,7 +125,7 @@ val loggers = setOf(
             "Drop items" to isDropItems,
         )
     },
-    // </editor-fold>
+    // endregion
     LoggerData(BlockExplodeEvent::class.java) {
         listOf(
             "Affected blocks" to blockList(),
@@ -144,5 +144,5 @@ val loggers = setOf(
             "Affected blocks" to blocks,
         )
     },
-    // </editor-fold>
+    // endregion
 )

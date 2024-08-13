@@ -54,6 +54,7 @@ class ToplevelLoggerData<T : Event>(
 ) : GroupLoggerData<T>(eventClass, properties)
 
 val loggers = setOf(
+    // <editor-fold desc="Block events">
     ToplevelLoggerData(BlockEvent::class.java) {
         listOf("Block" to block)
     },
@@ -64,12 +65,6 @@ val loggers = setOf(
         listOf(
             "Entity" to entity,
             "Direction" to direction,
-        )
-    },
-    LoggerData(BlockBreakEvent::class.java) {
-        listOf(
-            "Player" to player,
-            "Drop items" to isDropItems,
         )
     },
     LoggerData(BlockBurnEvent::class.java) {
@@ -102,15 +97,17 @@ val loggers = setOf(
             "Instant break" to instaBreak,
         )
     },
-    LoggerData(BlockDispenseArmorEvent::class.java) {
-        listOf("Target entity" to targetEntity)
-    },
+    //<editor-fold desc="BlockDispenseEvent">
     GroupLoggerData(BlockDispenseEvent::class.java) {
         listOf(
             "Item" to item,
             "Velocity" to velocity,
         )
     },
+    LoggerData(BlockDispenseArmorEvent::class.java) {
+        listOf("Target entity" to targetEntity)
+    },
+    //</editor-fold>
     LoggerData(BlockDropItemEvent::class.java) {
         listOf(
             "Player" to player,
@@ -118,9 +115,17 @@ val loggers = setOf(
             "Block state" to blockState,
         )
     },
+    // <editor-fold desc="BlockExpEvent">
     GroupLoggerData(BlockExpEvent::class.java) {
         listOf("Exp to drop" to expToDrop)
     },
+    LoggerData(BlockBreakEvent::class.java) {
+        listOf(
+            "Player" to player,
+            "Drop items" to isDropItems,
+        )
+    },
+    // </editor-fold>
     LoggerData(BlockExplodeEvent::class.java) {
         listOf(
             "Affected blocks" to blockList(),
@@ -139,4 +144,5 @@ val loggers = setOf(
             "Affected blocks" to blocks,
         )
     },
+    // </editor-fold>
 )

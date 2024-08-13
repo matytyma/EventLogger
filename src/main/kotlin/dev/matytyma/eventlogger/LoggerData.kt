@@ -22,17 +22,17 @@ open class LoggerData<T : Event>(
         if (!eventClass.isInstance(event)) {
             throw IllegalArgumentException("Event ${event.eventName} could not be passed to logger for ${eventClass.simpleName}")
         }
-        val eventProperties = loggers.filter {
+        val eventProperties: List<Pair<String, String>> = loggers.filter {
             it.eventClass.isInstance(event)
         }.flatMap { it.getData(event) }.map { it.first to it.second.serialize() }
 
         val header = "${event.eventName}${if (event is Cancellable && event.isCancelled) " - cancelled" else ""}"
-        val width = max(header.length, eventProperties.maxOf { (title, value) ->
+        val width = max(header.length, eventProperties.maxOf { (title: String, value: String) ->
             title.length + value.length
         }) + 2
 
         logger.info("$topLeftBorder${topBorder.repeat((width - header.length) / 2)} $header ${topBorder.repeat((width - header.length + 1) / 2)}$topRightBorder")
-        eventProperties.forEach { (title, value) ->
+        eventProperties.forEach { (title: String, value: String) ->
             val lineWidth = title.length + value.length + 2
             logger.info("$leftBorder $title: $value ${" ".repeat(width - lineWidth)}$rightBorder")
         }
@@ -53,7 +53,7 @@ class ToplevelLoggerData<T : Event>(
     properties: T.() -> List<Pair<String, Any?>>,
 ) : GroupLoggerData<T>(eventClass, properties)
 
-val loggers = setOf(
+val loggers: Set<LoggerData<out Event>> = setOf(
     // region Block events
     ToplevelLoggerData(BlockEvent::class.java) {
         listOf("Block" to block)

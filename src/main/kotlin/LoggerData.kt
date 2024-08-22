@@ -48,14 +48,14 @@ open class GroupLoggerData<T : Event>(
     properties: T.() -> List<Pair<String, Any?>>,
 ) : LoggerData<T>(eventClass, properties)
 
-class ToplevelLoggerData<T : Event>(
+class AbstractLoggerData<T : Event>(
     eventClass: Class<T>,
     properties: T.() -> List<Pair<String, Any?>>,
 ) : GroupLoggerData<T>(eventClass, properties)
 
 val loggers: Set<LoggerData<out Event>> = setOf(
     // region Block events
-    ToplevelLoggerData(BlockEvent::class.java) {
+    AbstractLoggerData(BlockEvent::class.java) {
         listOf("Block" to block)
     },
     LoggerData(BellResonateEvent::class.java) {
@@ -174,7 +174,7 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         )
     },
     // region BlockPistonEvent
-    ToplevelLoggerData(BlockPistonEvent::class.java) {
+    AbstractLoggerData(BlockPistonEvent::class.java) {
         listOf(
             "Direction" to direction,
             "Is sticky" to isSticky,

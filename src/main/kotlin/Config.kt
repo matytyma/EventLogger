@@ -53,7 +53,7 @@ object Config {
                             loggerData.eventClass.isAssignableFrom(it.eventClass)
                         } - loggerData)
                     }
-                    if (loggerData !is ToplevelLoggerData) {
+                    if (loggerData !is AbstractLoggerData) {
                         add(loggerData)
                     }
                 } catch (_: Throwable) {
@@ -62,7 +62,7 @@ object Config {
             }
         }.let { events: List<LoggerData<out Event>> ->
             if (!config.getBoolean("whitelist")) {
-                (loggers - events.toSet()).filterNot { it is ToplevelLoggerData<*> }
+                (loggers - events.toSet()).filterNot { it is AbstractLoggerData<*> }
             } else events
         }.toSet()
 

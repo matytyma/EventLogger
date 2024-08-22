@@ -166,9 +166,6 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Cause" to cause,
         )
     },
-    LoggerData(BlockMultiPlaceEvent::class.java) {
-        listOf("Replaced block states" to replacedBlockStates)
-    },
     LoggerData(BlockPhysicsEvent::class.java) {
         listOf(
             "Source block" to sourceBlock,
@@ -188,6 +185,22 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     },
     LoggerData(BlockPistonRetractEvent::class.java) {
         listOf("Blocks" to blocks)
+    },
+    // endregion
+    // region BlockPlaceEvent
+    LoggerData(BlockPlaceEvent::class.java) {
+        listOf(
+            "Player" to player,
+            "Item in hand" to itemInHand,
+            "Can build" to canBuild(),
+            "Placed block" to blockPlaced,
+            "Hand" to hand,
+            "Replaced block state" to blockReplacedState,
+            "Block placed against" to blockAgainst,
+        )
+    },
+    LoggerData(BlockMultiPlaceEvent::class.java) {
+        listOf("Replaced block states" to replacedBlockStates)
     },
     // endregion
     // endregion

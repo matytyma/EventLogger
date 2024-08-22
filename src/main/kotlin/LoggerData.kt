@@ -176,5 +176,19 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Changed block data" to changedBlockData
         )
     },
+    // region BlockPistonEvent
+    LoggerData(BlockPistonEvent::class.java) {
+        listOf(
+            "Direction" to direction,
+            "Is sticky" to isSticky,
+        )
+    },
+    LoggerData(BlockPistonExtendEvent::class.java) {
+        listOf("Blocks" to blocks)
+    },
+    LoggerData(BlockPistonRetractEvent::class.java) {
+        listOf("Blocks" to blocks)
+    },
+    // endregion
     // endregion
 )

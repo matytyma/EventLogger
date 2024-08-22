@@ -144,5 +144,14 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Affected blocks" to blocks,
         )
     },
+    LoggerData(BlockFormEvent::class.java) {
+        emptyList()
+    },
+    LoggerData(BlockFromToEvent::class.java) {
+        listOf(
+            "To block" to toBlock,
+            "Face" to face,
+        )
+    },
     // endregion
 )

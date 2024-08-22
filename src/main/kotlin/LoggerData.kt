@@ -158,5 +158,23 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         emptyList()
     },
     // endregion
+    LoggerData(BlockIgniteEvent::class.java) {
+        listOf(
+            "Igniting entity" to ignitingEntity,
+            "Igniting block" to ignitingBlock,
+            "Player" to player,
+            "Cause" to cause,
+        )
+    },
+    LoggerData(BlockMultiPlaceEvent::class.java) {
+        listOf("Replaced block states" to replacedBlockStates)
+    },
+    LoggerData(BlockPhysicsEvent::class.java) {
+        listOf(
+            "Source block" to sourceBlock,
+            "Changed type" to changedType,
+            "Changed block data" to changedBlockData
+        )
+    },
     // endregion
 )

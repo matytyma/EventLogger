@@ -151,7 +151,7 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         )
     },
     // region BlockGrowEvent
-    LoggerData(BlockGrowEvent::class.java) {
+    GroupLoggerData(BlockGrowEvent::class.java) {
         listOf("New state" to newState)
     },
     LoggerData(BlockFormEvent::class.java) {
@@ -174,7 +174,7 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         )
     },
     // region BlockPistonEvent
-    LoggerData(BlockPistonEvent::class.java) {
+    ToplevelLoggerData(BlockPistonEvent::class.java) {
         listOf(
             "Direction" to direction,
             "Is sticky" to isSticky,
@@ -188,7 +188,7 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     },
     // endregion
     // region BlockPlaceEvent
-    LoggerData(BlockPlaceEvent::class.java) {
+    GroupLoggerData(BlockPlaceEvent::class.java) {
         listOf(
             "Player" to player,
             "Item in hand" to itemInHand,

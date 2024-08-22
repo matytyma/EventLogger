@@ -6,13 +6,14 @@ group = "dev.matytyma.eventlogger"
 version = "1.0-SNAPSHOT"
 
 repositories {
-    mavenCentral()
+    mavenLocal()
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
-    implementation(kotlin("stdlib"))
+    implementation("dev.matytyma.minekraft:minekraft-api:1.0-SNAPSHOT")
+    compileOnly(kotlin("stdlib"))
 }
 
 val targetJavaVersion = 21

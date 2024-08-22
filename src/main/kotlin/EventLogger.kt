@@ -2,11 +2,11 @@ package dev.matytyma.eventlogger
 
 import dev.matytyma.eventlogger.command.MainCommand
 import dev.matytyma.eventlogger.command.ReloadCommand
+import dev.matytyma.minekraft.plugin.on
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.TabExecutor
-import org.bukkit.event.*
-import org.bukkit.plugin.*
+import org.bukkit.event.EventPriority
 import org.bukkit.plugin.java.JavaPlugin
 
 lateinit var plugin: EventLogger
@@ -20,14 +20,9 @@ class EventLogger : JavaPlugin() {
     )
 
     fun registerEvents() {
-        val manager: PluginManager = server.pluginManager
-        val listener = object : Listener {}
         Config.events.forEach {
-            val executor = EventExecutor { _: Listener, event: Event -> it.logData(event) }
-            try {
-                manager.registerEvent(it.eventClass, listener, EventPriority.MONITOR, executor, this)
-            } catch (e: IllegalPluginAccessException) {
-                slF4JLogger.error("An error occurred while registering logger for ${it.eventClass.simpleName}", e)
+            plugin.on(it.eventClass, EventPriority.MONITOR) {
+                it.logData(this)
             }
         }
     }

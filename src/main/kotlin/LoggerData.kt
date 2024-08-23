@@ -254,5 +254,8 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Result" to result,
         )
     },
+    LoggerData(FluidLevelChangeEvent::class.java) {
+        listOf("New data" to newData)
+    }
     // endregion
 )

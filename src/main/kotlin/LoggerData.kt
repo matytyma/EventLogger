@@ -269,5 +269,8 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         )
     },
     // endregion
+    LoggerData(LeavesDecayEvent::class.java) {
+        emptyList()
+    },
     // endregion
 )

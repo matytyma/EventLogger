@@ -243,5 +243,12 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Reason" to reason,
         )
     },
+    LoggerData(CrafterCraftEvent::class.java) {
+        listOf(
+            "Recipe" to recipe,
+            "Result" to result,
+        )
+    },
+    
     // endregion
 )

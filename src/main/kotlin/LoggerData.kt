@@ -12,6 +12,7 @@ import dev.matytyma.eventlogger.Config.topRightBorder
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.block.*
+import org.bukkit.event.inventory.FurnaceStartSmeltEvent
 import kotlin.math.max
 
 open class LoggerData<T : Event>(
@@ -230,17 +231,6 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Tool" to tool,
         )
     },
-    // region @Experimental BrewingStartEvent, CampfireStartEvent
-    /* LoggerData(BrewingStartEvent::class.java) {
-        listOf("Total brewing time" to totalBrewTime)
-    },
-    LoggerData(CampfireStartEvent::class.java) {
-        listOf(
-            "Recipe" to recipe,
-            "Total cooking time" to totalCookTime,
-        )
-    }, */
-    // endregion
     LoggerData(CauldronLevelChangeEvent::class.java) {
         listOf(
             "Entity" to entity,
@@ -256,6 +246,28 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     },
     LoggerData(FluidLevelChangeEvent::class.java) {
         listOf("New data" to newData)
-    }
+    },
+    // region InventoryBlockStartEvent
+    GroupLoggerData(InventoryBlockStartEvent::class.java) {
+        listOf("Source" to source)
+    },
+    // region @Experimental BrewingStartEvent, CampfireStartEvent
+    /* LoggerData(BrewingStartEvent::class.java) {
+        listOf("Total brewing time" to totalBrewTime)
+    },
+    LoggerData(CampfireStartEvent::class.java) {
+        listOf(
+            "Recipe" to recipe,
+            "Total cooking time" to totalCookTime,
+        )
+    }, */
+    // endregion
+    LoggerData(FurnaceStartSmeltEvent::class.java) {
+        listOf(
+            "Recipe" to recipe,
+            "Total cooking time" to totalCookTime,
+        )
+    },
+    // endregion
     // endregion
 )

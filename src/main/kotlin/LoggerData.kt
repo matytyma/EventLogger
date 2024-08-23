@@ -154,12 +154,17 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     GroupLoggerData(BlockGrowEvent::class.java) {
         listOf("New state" to newState)
     },
+    // region BlockFormEvent
     GroupLoggerData(BlockFormEvent::class.java) {
         emptyList()
     },
     LoggerData(BlockSpreadEvent::class.java) {
         listOf("Source" to source)
     },
+    LoggerData(EntityBlockFormEvent::class.java) {
+        listOf("Entity" to entity)
+    },
+    // endregion
     // endregion
     LoggerData(BlockIgniteEvent::class.java) {
         listOf(
@@ -249,6 +254,5 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Result" to result,
         )
     },
-    
     // endregion
 )

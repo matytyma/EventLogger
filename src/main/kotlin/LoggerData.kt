@@ -215,5 +215,12 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Old current" to oldCurrent,
         )
     },
+    LoggerData(BlockShearEntityEvent::class.java) {
+        listOf(
+            "Entity" to entity,
+            "Drops" to drops,
+            "Tool" to tool,
+        )
+    },
     // endregion
 )

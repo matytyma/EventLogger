@@ -225,11 +225,16 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Tool" to tool,
         )
     },
-    // region BrewingStartEvent
-    // TODO uncomment once `BrewingStartEvent` is stable
+    // region @Experimental BrewingStartEvent, CampfireStartEvent
     /* LoggerData(BrewingStartEvent::class.java) {
         listOf("Total brewing time" to totalBrewTime)
-    } */
+    },
+    LoggerData(CampfireStartEvent::class.java) {
+        listOf(
+            "Recipe" to recipe,
+            "Total cooking time" to totalCookTime,
+        )
+    }, */
     // endregion
     // endregion
 )

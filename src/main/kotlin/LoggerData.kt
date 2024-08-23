@@ -203,5 +203,17 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         listOf("Replaced block states" to replacedBlockStates)
     },
     // endregion
+    LoggerData(BlockReceiveGameEvent::class.java) {
+        listOf(
+            "Entity" to entity,
+            "Game event" to event,
+        )
+    },
+    LoggerData(BlockRedstoneEvent::class.java) {
+        listOf(
+            "New current" to newCurrent,
+            "Old current" to oldCurrent,
+        )
+    },
     // endregion
 )

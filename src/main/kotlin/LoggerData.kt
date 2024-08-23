@@ -236,5 +236,12 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         )
     }, */
     // endregion
+    LoggerData(CauldronLevelChangeEvent::class.java) {
+        listOf(
+            "Entity" to entity,
+            "New state" to newState,
+            "Reason" to reason,
+        )
+    },
     // endregion
 )

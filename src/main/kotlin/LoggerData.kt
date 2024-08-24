@@ -290,6 +290,6 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Lines" to lines(),
             "Side" to side,
         )
-    }
+    },
     // endregion
 )

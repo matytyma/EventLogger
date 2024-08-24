@@ -335,5 +335,11 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(BatToggleSleepEvent::class.java) {
         listOf("Is awake" to isAwake)
     },
+    LoggerData(CreeperPowerEvent::class.java) {
+        listOf(
+            "Lightning" to lightning,
+            "Cause" to cause,
+        )
+    }
     // endregion
 )

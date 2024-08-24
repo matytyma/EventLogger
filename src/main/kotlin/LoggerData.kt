@@ -291,5 +291,10 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Side" to side,
         )
     },
+    // region @Experimental VaultDisplayItemEvent
+    /* LoggerData(VaultDisplayItemEvent::class.java) {
+        listOf("Display item" to displayItem)
+    }, */
+    // endregion
     // endregion
 )

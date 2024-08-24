@@ -11,7 +11,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT")
     implementation("dev.matytyma.minekraft:minekraft-api:1.0-SNAPSHOT")
     compileOnly(kotlin("stdlib"))
 }

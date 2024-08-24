@@ -272,5 +272,8 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(LeavesDecayEvent::class.java) {
         emptyList()
     },
+    LoggerData(MoistureChangeEvent::class.java) {
+        listOf("New state" to newState)
+    },
     // endregion
 )

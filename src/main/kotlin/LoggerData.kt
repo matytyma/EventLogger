@@ -283,6 +283,13 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     },
     LoggerData(SculkBloomEvent::class.java) {
         listOf("Charge" to charge)
+    },
+    LoggerData(SignChangeEvent::class.java) {
+        listOf(
+            "Player" to player,
+            "Lines" to lines(),
+            "Side" to side,
+        )
     }
     // endregion
 )

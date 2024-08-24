@@ -275,5 +275,11 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(MoistureChangeEvent::class.java) {
         listOf("New state" to newState)
     },
+    LoggerData(NotePlayEvent::class.java) {
+        listOf(
+            "Instrument" to instrument,
+            "Note" to note,
+        )
+    },
     // endregion
 )

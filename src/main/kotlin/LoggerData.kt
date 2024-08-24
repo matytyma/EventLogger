@@ -305,6 +305,6 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Priming entity" to primingEntity,
             "Cause" to cause,
         )
-    }
+    },
     // endregion
 )

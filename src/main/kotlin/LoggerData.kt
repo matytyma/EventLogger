@@ -299,5 +299,12 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         listOf("Display item" to displayItem)
     }, */
     // endregion
+    LoggerData(TNTPrimeEvent::class.java) {
+        listOf(
+            "Priming block" to primingBlock,
+            "Priming entity" to primingEntity,
+            "Cause" to cause,
+        )
+    }
     // endregion
 )

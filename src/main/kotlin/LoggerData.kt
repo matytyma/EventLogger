@@ -281,5 +281,8 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Note" to note,
         )
     },
+    LoggerData(SculkBloomEvent::class.java) {
+        listOf("Charge" to charge)
+    }
     // endregion
 )

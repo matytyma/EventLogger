@@ -340,6 +340,12 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Lightning" to lightning,
             "Cause" to cause,
         )
-    }
+    },
+    LoggerData(EnderDragonChangePhaseEvent::class.java) {
+        listOf(
+            "New phase" to newPhase,
+            "Current phase" to currentPhase,
+        )
+    },
     // endregion
 )

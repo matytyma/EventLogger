@@ -291,6 +291,9 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Side" to side,
         )
     },
+    LoggerData(SpongeAbsorbEvent::class.java) {
+        listOf("Blocks" to blocks)
+    },
     // region @Experimental VaultDisplayItemEvent
     /* LoggerData(VaultDisplayItemEvent::class.java) {
         listOf("Display item" to displayItem)

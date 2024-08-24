@@ -347,5 +347,8 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Current phase" to currentPhase,
         )
     },
+    LoggerData(EntityAirChangeEvent::class.java) {
+        listOf("Amount" to amount)
+    },
     // endregion
 )

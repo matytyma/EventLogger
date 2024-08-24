@@ -13,6 +13,7 @@ import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.block.*
 import org.bukkit.event.command.UnknownCommandEvent
+import org.bukkit.event.entity.AreaEffectCloudApplyEvent
 import org.bukkit.event.entity.EntityEvent
 import org.bukkit.event.inventory.FurnaceStartSmeltEvent
 import kotlin.math.max
@@ -321,6 +322,9 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     // region Entity events
     AbstractLoggerData(EntityEvent::class.java) {
         listOf("Entity" to entity)
+    },
+    LoggerData(AreaEffectCloudApplyEvent::class.java) {
+        listOf("Affected entities" to affectedEntities)
     },
     // endregion
 )

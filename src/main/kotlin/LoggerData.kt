@@ -12,6 +12,7 @@ import dev.matytyma.eventlogger.Config.topRightBorder
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.block.*
+import org.bukkit.event.command.UnknownCommandEvent
 import org.bukkit.event.inventory.FurnaceStartSmeltEvent
 import kotlin.math.max
 
@@ -304,6 +305,15 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Priming block" to primingBlock,
             "Priming entity" to primingEntity,
             "Cause" to cause,
+        )
+    },
+    // endregion
+    // region Command events
+    LoggerData(UnknownCommandEvent::class.java) {
+        listOf(
+            "Sender" to sender,
+            "Command line" to commandLine,
+            "Message" to message(),
         )
     },
     // endregion

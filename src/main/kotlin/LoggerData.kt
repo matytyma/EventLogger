@@ -331,6 +331,9 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Old amount" to oldAmount,
             "Is reset" to isReset,
         )
-    }
+    },
+    LoggerData(BatToggleSleepEvent::class.java) {
+        listOf("Is awake" to isAwake)
+    },
     // endregion
 )

@@ -439,5 +439,8 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Is cancellable" to isCancellable,
         )
     },
+    LoggerData(EntityDropItemEvent::class.java) {
+        listOf("Item dropped" to itemDrop)
+    },
     // endregion
 )

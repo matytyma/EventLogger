@@ -367,6 +367,9 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "New material" to to,
         )
     },
+    LoggerData(EntityBreakDoorEvent::class.java) {
+        emptyList()
+    },
     // endregion
     // endregion
 )

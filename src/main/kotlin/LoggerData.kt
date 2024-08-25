@@ -421,6 +421,17 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             // endregion
         )
     },
+    LoggerData(PlayerDeathEvent::class.java) {
+        listOf(
+            "Death message" to deathMessage(),
+            "Items to keep" to itemsToKeep,
+            "Keep inventory" to keepInventory,
+            "Keep level" to keepLevel,
+            "New level" to newLevel,
+            "New experience" to newExp,
+            "New total experience" to newTotalExp
+        )
+    },
     // endregion
     // endregion
 )

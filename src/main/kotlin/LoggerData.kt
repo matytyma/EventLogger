@@ -382,5 +382,17 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         listOf("Combuster" to combuster)
     },
     // endregion
+    // region EntityDamageEvent
+    GroupLoggerData(EntityDamageEvent::class.java) {
+        listOf(
+            "Damage" to damage,
+            "Final damage" to finalDamage,
+            "Cause" to cause,
+            // region @Experimental DamageSource
+            // "Damage source" to damageSource,
+            // endregion
+        )
+    }
+    // endregion
     // endregion
 )

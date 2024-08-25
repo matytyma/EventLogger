@@ -375,6 +375,9 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     GroupLoggerData(EntityCombustEvent::class.java) {
         listOf("Duration" to duration)
     },
+    LoggerData(EntityCombustByBlockEvent::class.java) {
+        listOf("Combuster" to combuster)
+    },
     // endregion
     // endregion
 )

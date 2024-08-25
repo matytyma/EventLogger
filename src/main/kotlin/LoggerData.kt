@@ -445,5 +445,11 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(EntityEnterBlockEvent::class.java) {
         listOf("Block" to block)
     },
+    LoggerData(EntityEnterLoveModeEvent::class.java) {
+        listOf(
+            "Human entity" to humanEntity,
+            "Ticks in love" to ticksInLove,
+        )
+    },
     // endregion
 )

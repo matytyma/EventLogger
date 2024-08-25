@@ -442,5 +442,8 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(EntityDropItemEvent::class.java) {
         listOf("Item dropped" to itemDrop)
     },
+    LoggerData(EntityEnterBlockEvent::class.java) {
+        listOf("Block" to block)
+    },
     // endregion
 )

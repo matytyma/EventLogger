@@ -406,5 +406,21 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         )
     },
     // endregion
+    // region EntityDeathEvent
+    GroupLoggerData(EntityDeathEvent::class.java) {
+        listOf(
+            "Drops" to drops,
+            "Dropped experience" to droppedExp,
+            "Revive health" to reviveHealth,
+            "Death sound" to deathSound,
+            "Death sound category" to deathSoundCategory,
+            "Death sound volume" to deathSoundVolume,
+            "Death sound pitch" to deathSoundPitch,
+            // region @Experimental DamageSource
+            // "Damage source" to damageSource,
+            // endregion
+        )
+    },
+    // endregion
     // endregion
 )

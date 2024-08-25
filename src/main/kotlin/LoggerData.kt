@@ -433,5 +433,11 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         )
     },
     // endregion
+    LoggerData(EntityDismountEvent::class.java) {
+        listOf(
+            "Dismounted" to dismounted,
+            "Is cancellable" to isCancellable,
+        )
+    },
     // endregion
 )

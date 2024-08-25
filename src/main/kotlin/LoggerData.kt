@@ -451,5 +451,11 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Ticks in love" to ticksInLove,
         )
     },
+    LoggerData(EntityExhaustionEvent::class.java) {
+        listOf(
+            "Exhaustion" to exhaustion,
+            "Exhaustion reason" to exhaustionReason,
+        )
+    },
     // endregion
 )

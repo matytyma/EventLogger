@@ -392,7 +392,13 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             // "Damage source" to damageSource,
             // endregion
         )
-    }
+    },
+    LoggerData(EntityDamageByBlockEvent::class.java) {
+        listOf(
+            "Damager" to damager,
+            "Damager block state" to damagerBlockState
+        )
+    },
     // endregion
     // endregion
 )

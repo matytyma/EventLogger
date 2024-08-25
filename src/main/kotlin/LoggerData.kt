@@ -457,5 +457,15 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Exhaustion reason" to exhaustionReason,
         )
     },
+    LoggerData(EntityExplodeEvent::class.java) {
+        listOf(
+            "Location" to location,
+            "Yield" to yield,
+            "Blocks" to blockList(),
+            // region @Experimental ExplosionResult
+            // "Explosion result" to explosionResult,
+            // endregion
+        )
+    },
     // endregion
 )

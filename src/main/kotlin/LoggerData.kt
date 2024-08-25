@@ -359,5 +359,14 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Experience" to experience,
         )
     },
+    // region EntityChangeBlockEvent
+    GroupLoggerData(EntityChangeBlockEvent::class.java) {
+        listOf(
+            "Block" to block,
+            "New data" to blockData,
+            "New material" to to,
+        )
+    },
+    // endregion
     // endregion
 )

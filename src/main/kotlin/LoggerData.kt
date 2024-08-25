@@ -350,5 +350,14 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(EntityAirChangeEvent::class.java) {
         listOf("Amount" to amount)
     },
+    LoggerData(EntityBreedEvent::class.java) {
+        listOf(
+            "Breeder" to breeder,
+            "Bred with" to bredWith,
+            "Mother" to mother,
+            "Father" to father,
+            "Experience" to experience,
+        )
+    },
     // endregion
 )

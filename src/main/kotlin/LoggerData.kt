@@ -496,5 +496,15 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(EntityPoseChangeEvent::class.java) {
         listOf("Pose" to pose)
     },
+    LoggerData(EntityPotionEffectEvent::class.java) {
+        listOf(
+            "Modified type" to modifiedType,
+            "New effect" to newEffect,
+            "Old effect" to oldEffect,
+            "Action" to action,
+            "Cause" to cause,
+            "Is override" to isOverride,
+        )
+    },
     // endregion
 )

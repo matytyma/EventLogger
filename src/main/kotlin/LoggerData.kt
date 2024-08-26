@@ -530,6 +530,9 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     GroupLoggerData(EntitySpawnEvent::class.java) {
         listOf("Location" to location)
     },
+    LoggerData(CreatureSpawnEvent::class.java) {
+        listOf("Spawn reason" to spawnReason)
+    },
     // endregion
     // endregion
 )

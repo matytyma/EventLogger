@@ -542,6 +542,11 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(SpawnerSpawnEvent::class.java) {
         listOf("Spawner" to spawner)
     },
+    // region @Experimental TrialSpawnerSpawnEvent
+    /* LoggerData(TrialSpawnerSpawnEvent::class.java) {
+        listOf("Trial spawner" to trialSpawner)
+    }, */
+    // endregion
     // endregion
     // endregion
 )

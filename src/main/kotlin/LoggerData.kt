@@ -539,6 +539,9 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(ProjectileLaunchEvent::class.java) {
         emptyList()
     },
+    LoggerData(SpawnerSpawnEvent::class.java) {
+        listOf("Spawner" to spawner)
+    },
     // endregion
     // endregion
 )

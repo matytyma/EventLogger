@@ -10,7 +10,8 @@ import kotlin.properties.Delegates
 
 object Config {
     // region Configuration variables
-    private val config: Configuration = plugin.config
+    private val config: Configuration
+        get() = plugin.config
 
     lateinit var prefix: Component
     lateinit var logger: Logger

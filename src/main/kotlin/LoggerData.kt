@@ -551,5 +551,8 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(EntitySpellCastEvent::class.java) {
         listOf("Spell" to spell)
     },
+    LoggerData(EntityTameEvent::class.java) {
+        listOf("Owner" to owner)
+    },
     // endregion
 )

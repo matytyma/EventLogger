@@ -513,5 +513,8 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Is fast regen" to isFastRegen,
         )
     },
+    LoggerData(EntityResurrectEvent::class.java) {
+        listOf("Hand" to hand)
+    },
     // endregion
 )

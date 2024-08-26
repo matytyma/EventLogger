@@ -493,5 +493,8 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Portal type" to portalType,
         )
     },
+    LoggerData(EntityPoseChangeEvent::class.java) {
+        listOf("Pose" to pose)
+    },
     // endregion
 )

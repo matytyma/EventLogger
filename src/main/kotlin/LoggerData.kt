@@ -473,5 +473,11 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(EntityMountEvent::class.java) {
         listOf("Mount" to mount)
     },
+    LoggerData(EntityPickupItemEvent::class.java) {
+        listOf(
+            "Item" to item,
+            "Remaining" to remaining,
+        )
+    },
     // endregion
 )

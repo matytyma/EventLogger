@@ -470,5 +470,8 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(EntityInteractEvent::class.java) {
         listOf("Block" to block)
     },
+    LoggerData(EntityMountEvent::class.java) {
+        listOf("Mount" to mount)
+    },
     // endregion
 )

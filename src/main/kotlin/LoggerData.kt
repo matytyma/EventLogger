@@ -506,5 +506,12 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Is override" to isOverride,
         )
     },
+    LoggerData(EntityRegainHealthEvent::class.java) {
+        listOf(
+            "Amount" to amount,
+            "Regain reason" to regainReason,
+            "Is fast regen" to isFastRegen,
+        )
+    },
     // endregion
 )

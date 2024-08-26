@@ -487,5 +487,11 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Hand" to hand,
         )
     },
+    LoggerData(EntityPortalEnterEvent::class.java) {
+        listOf(
+            "Location" to location,
+            "Portal type" to portalType,
+        )
+    },
     // endregion
 )

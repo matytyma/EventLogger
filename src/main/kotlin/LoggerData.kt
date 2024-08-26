@@ -526,5 +526,10 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Should consume item" to shouldConsumeItem(),
         )
     },
+    // region EntitySpawnEvent
+    GroupLoggerData(EntitySpawnEvent::class.java) {
+        listOf("Location" to location)
+    },
+    // endregion
     // endregion
 )

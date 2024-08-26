@@ -479,5 +479,13 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Remaining" to remaining,
         )
     },
+    LoggerData(EntityPlaceEvent::class.java) {
+        listOf(
+            "Player" to player,
+            "Block" to block,
+            "Block face" to blockFace,
+            "Hand" to hand,
+        )
+    },
     // endregion
 )

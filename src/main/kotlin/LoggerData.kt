@@ -516,5 +516,15 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(EntityResurrectEvent::class.java) {
         listOf("Hand" to hand)
     },
+    LoggerData(EntityShootBowEvent::class.java) {
+        listOf(
+            "Projectile" to projectile,
+            "Force" to force,
+            "Bow" to bow,
+            "Consumable" to consumable,
+            "Hand" to hand,
+            "Should consume item" to shouldConsumeItem(),
+        )
+    },
     // endregion
 )

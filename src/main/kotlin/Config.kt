@@ -3,10 +3,8 @@ package dev.matytyma.eventlogger
 import net.kyori.adventure.text.Component
 import org.bukkit.configuration.Configuration
 import org.bukkit.configuration.ConfigurationSection
-import org.bukkit.event.Event
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-import kotlin.properties.Delegates
 
 object Config {
     // region Configuration variables
@@ -14,8 +12,7 @@ object Config {
         get() = plugin.config
 
     lateinit var prefix: Component
-    lateinit var logger: Logger
-    var events: Set<LoggerData<*>> = emptySet()
+    lateinit var eventLogger: Logger
 
     var whitelist: Set<String> = emptySet()
         set(value) {
@@ -29,35 +26,45 @@ object Config {
             rebuildEvents()
         }
 
-    lateinit var classFormatter: Any.(List<Pair<String, Any?>>) -> String
-
     var alterClassNames: Boolean = true
     var classSeparator: String = ", "
     var classPrefix: String = "("
     var classPostfix: String = ")"
 
     var arraySeparator: String = ", "
-    var arrayPrefix: String = "]"
-    var arrayPostfix: String =
+    var arrayPrefix: String = "["
+    var arrayPostfix: String = "]"
 
-    var fieldSeparator: String
+    var fieldSeparator: String = "="
 
-    var topLeftBorder: Char by Delegates.notNull()
-    var topBorder: Char by Delegates.notNull()
-    var topRightBorder: Char by Delegates.notNull()
-    var leftBorder: Char by Delegates.notNull()
-    var rightBorder: Char by Delegates.notNull()
-    var bottomLeftBorder: Char by Delegates.notNull()
-    var bottomBorder: Char by Delegates.notNull()
-    var bottomRightBorder: Char by Delegates.notNull()
+    var topLeftBorder: Char = '┏'
+    var topBorder: Char = '━'
+    var topRightBorder: Char = '┓'
+    var leftBorder: Char = '┃'
+    var rightBorder: Char = '┃'
+    var bottomLeftBorder: Char = '┗'
+    var bottomBorder: Char = '━'
+    var bottomRightBorder: Char = '┛'
     // endregion
 
     fun loadConfig() {
         plugin.saveDefaultConfig()
         plugin.reloadConfig()
         prefix = mm.deserialize(config.getString("prefix.general") ?: "[EventLogger] ")
-        logger = LoggerFactory.getLogger(config.getString("prefix.logging"))
-        whitelist = config.getStringList("whitelist").toSet()
+        eventLogger = LoggerFactory.getLogger(config.getString("prefix.logging"))
+        whitelist = config.getStringList("whitelist").let {>
+            buildSet {
+                it.forEach {
+
+                }
+                if (loggers.any { it.eventClass.simpleName == it}) {
+                    plugin.slF4JLogger.warn("Logger for event '$it' does not exist, is it spelled right?")
+                    add(event)
+                } else {
+                    sender.sendPrefixedMessage("No logger found for $event")
+                }
+            }
+        }
         blacklist = config.getStringList("blacklist").toSet()
 
         val format: ConfigurationSection? = config.getConfigurationSection("format")
@@ -65,28 +72,28 @@ object Config {
         val classFormat: ConfigurationSection? = format?.getConfigurationSection("class")
         alterClassNames = classFormat?.getBoolean("alterNames") ?: alterClassNames
         classSeparator = classFormat?.getString("separator") ?: classSeparator
-        classPrefix = classFormat?.getString("prefix") ?: "("
-        classPostfix = classFormat?.getString("postfix") ?: ")"
+        classPrefix = classFormat?.getString("prefix") ?: classPrefix
+        classPostfix = classFormat?.getString("postfix") ?: classPostfix
 
         val arrayFormat: ConfigurationSection? = format?.getConfigurationSection("array")
-        arraySeparator = arrayFormat?.getString("separator") ?: ", "
-        arrayPrefix = arrayFormat?.getString("prefix") ?: "["
-        arrayPostfix = arrayFormat?.getString("postfix") ?: "]"
+        arraySeparator = arrayFormat?.getString("separator") ?: arraySeparator
+        arrayPrefix = arrayFormat?.getString("prefix") ?: arrayPrefix
+        arrayPostfix = arrayFormat?.getString("postfix") ?: arrayPostfix
 
-        fieldSeparator = format?.getString("field.separator") ?: "="
+        fieldSeparator = format?.getString("field.separator") ?: fieldSeparator
 
         val border: ConfigurationSection? = format?.getConfigurationSection("border")
-        topLeftBorder = border?.getChar("top-left") ?: '┏'
-        topBorder = border?.getChar("top") ?: '━'
-        topRightBorder = border?.getChar("top-right") ?: '┓'
-        leftBorder = border?.getChar("left") ?: '┃'
-        rightBorder = border?.getChar("right") ?: '┃'
-        bottomLeftBorder = border?.getChar("bottom-left") ?: '┗'
-        bottomBorder = border?.getChar("bottom") ?: '━'
-        bottomRightBorder = border?.getChar("bottom-right") ?: '┛'
+        topLeftBorder = border?.getChar("top-left") ?: topLeftBorder
+        topBorder = border?.getChar("top") ?: topBorder
+        topRightBorder = border?.getChar("top-right") ?: topRightBorder
+        leftBorder = border?.getChar("left") ?: leftBorder
+        rightBorder = border?.getChar("right") ?: rightBorder
+        bottomLeftBorder = border?.getChar("bottom-left") ?: bottomLeftBorder
+        bottomBorder = border?.getChar("bottom") ?: bottomBorder
+        bottomRightBorder = border?.getChar("bottom-right") ?: bottomRightBorder
     }
 
-    private fun mapEvents(events: Set<String>): Set<LoggerData<*>> = events.flatMap { event: String ->
+    private fun Set<String>.mapEvents(): Set<LoggerData<*>> = this.flatMap { event: String ->
         buildSet {
             val loggerData: LoggerData<*> = loggers.find { it.eventClass.simpleName == event } ?: return@buildSet
             if (loggerData is GroupLoggerData) {
@@ -101,6 +108,6 @@ object Config {
     }.toSet()
 
     private fun rebuildEvents() {
-        events = (mapEvents(whitelist) - mapEvents(blacklist)).filterNot { it is AbstractLoggerData }.toSet()
+        events = (whitelist.mapEvents() - blacklist.mapEvents()).filterNot { it is AbstractLoggerData }.toSet()
     }
 }

@@ -1,5 +1,6 @@
 package dev.matytyma.eventlogger
 
+import com.destroystokyo.paper.event.entity.EntityTeleportEndGatewayEvent
 import dev.matytyma.eventlogger.Config.bottomBorder
 import dev.matytyma.eventlogger.Config.bottomLeftBorder
 import dev.matytyma.eventlogger.Config.bottomRightBorder
@@ -585,6 +586,9 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "After" to after,
             "Before" to before,
         )
+    },
+    LoggerData(EntityTeleportEndGatewayEvent::class.java) {
+        listOf("Gateway" to gateway)
     },
     // endregion
     // endregion

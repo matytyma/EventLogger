@@ -15,19 +15,32 @@ object Config {
 
     lateinit var prefix: Component
     lateinit var logger: Logger
-    private var whitelist: Boolean by Delegates.notNull()
-    lateinit var events: Set<LoggerData<*>>
+    var events: Set<LoggerData<*>> = emptySet()
 
-    var alterClassNames: Boolean by Delegates.notNull()
-    lateinit var classSeparator: String
-    lateinit var classPrefix: String
-    lateinit var classPostfix: String
+    var whitelist: Set<String> = emptySet()
+        set(value) {
+            field = value
+            rebuildEvents()
+        }
 
-    lateinit var arraySeparator: String
-    lateinit var arrayPrefix: String
-    lateinit var arrayPostfix: String
+    var blacklist: Set<String> = emptySet()
+        set(value) {
+            field = value
+            rebuildEvents()
+        }
 
-    lateinit var fieldSeparator: String
+    lateinit var classFormatter: Any.(List<Pair<String, Any?>>) -> String
+
+    var alterClassNames: Boolean = true
+    var classSeparator: String = ", "
+    var classPrefix: String = "("
+    var classPostfix: String = ")"
+
+    var arraySeparator: String = ", "
+    var arrayPrefix: String = "]"
+    var arrayPostfix: String =
+
+    var fieldSeparator: String
 
     var topLeftBorder: Char by Delegates.notNull()
     var topBorder: Char by Delegates.notNull()
@@ -44,34 +57,14 @@ object Config {
         plugin.reloadConfig()
         prefix = mm.deserialize(config.getString("prefix.general") ?: "[EventLogger] ")
         logger = LoggerFactory.getLogger(config.getString("prefix.logging"))
-        whitelist = config.getBoolean("whitelist")
-        events = config.getStringList("events").flatMap { event: String ->
-            buildList {
-                try {
-                    val loggerData: LoggerData<*> = loggers.first { it.eventClass.simpleName == event }
-                    if (loggerData is GroupLoggerData) {
-                        addAll(loggers.filter {
-                            loggerData.eventClass.isAssignableFrom(it.eventClass)
-                        } - loggerData)
-                    }
-                    if (loggerData !is AbstractLoggerData) {
-                        add(loggerData)
-                    }
-                } catch (_: Throwable) {
-                    plugin.slF4JLogger.warn("Logger for event '$event' does not exist, is it spelled right?")
-                }
-            }
-        }.let { events: List<LoggerData<out Event>> ->
-            if (!config.getBoolean("whitelist")) {
-                (loggers - events.toSet()).filterNot { it is AbstractLoggerData<*> }
-            } else events
-        }.toSet()
+        whitelist = config.getStringList("whitelist").toSet()
+        blacklist = config.getStringList("blacklist").toSet()
 
         val format: ConfigurationSection? = config.getConfigurationSection("format")
 
         val classFormat: ConfigurationSection? = format?.getConfigurationSection("class")
-        alterClassNames = classFormat?.getBoolean("alterNames") ?: true
-        classSeparator = classFormat?.getString("separator") ?: ", "
+        alterClassNames = classFormat?.getBoolean("alterNames") ?: alterClassNames
+        classSeparator = classFormat?.getString("separator") ?: classSeparator
         classPrefix = classFormat?.getString("prefix") ?: "("
         classPostfix = classFormat?.getString("postfix") ?: ")"
 
@@ -91,5 +84,23 @@ object Config {
         bottomLeftBorder = border?.getChar("bottom-left") ?: '┗'
         bottomBorder = border?.getChar("bottom") ?: '━'
         bottomRightBorder = border?.getChar("bottom-right") ?: '┛'
+    }
+
+    private fun mapEvents(events: Set<String>): Set<LoggerData<*>> = events.flatMap { event: String ->
+        buildSet {
+            val loggerData: LoggerData<*> = loggers.find { it.eventClass.simpleName == event } ?: return@buildSet
+            if (loggerData is GroupLoggerData) {
+                addAll(loggers.filter {
+                    loggerData.eventClass.isAssignableFrom(it.eventClass)
+                } - loggerData)
+            }
+            if (loggerData !is AbstractLoggerData) {
+                add(loggerData)
+            }
+        }
+    }.toSet()
+
+    private fun rebuildEvents() {
+        events = (mapEvents(whitelist) - mapEvents(blacklist)).filterNot { it is AbstractLoggerData }.toSet()
     }
 }

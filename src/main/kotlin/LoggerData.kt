@@ -57,7 +57,7 @@ class AbstractLoggerData<T : Event>(
     properties: T.() -> List<Pair<String, Any?>>,
 ) : GroupLoggerData<T>(eventClass, properties)
 
-val loggers: Set<LoggerData<out Event>> = setOf(
+val loggers: Set<LoggerData<*>> = setOf(
     // region Block events
     AbstractLoggerData(BlockEvent::class.java) {
         listOf("Block" to block)

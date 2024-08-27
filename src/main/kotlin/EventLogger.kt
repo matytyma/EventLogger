@@ -4,7 +4,6 @@ import dev.matytyma.eventlogger.command.*
 import dev.matytyma.minekraft.plugin.on
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.command.CommandExecutor
-import org.bukkit.command.TabExecutor
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.plugin.java.JavaPlugin
@@ -31,23 +30,13 @@ class EventLogger : JavaPlugin() {
 
     fun registerEvents() = events.forEach(::registerEvent)
 
-    private fun registerCommands() {
-        getCommand("eventlogger")?.apply {
-            setExecutor(MainCommand)
-            tabCompleter = MainCommand
-        }
-        commands.forEach { (name: String, executor: CommandExecutor) ->
-            getCommand(name)?.setExecutor(executor)
-            if (executor is TabExecutor) {
-                getCommand(name)?.tabCompleter = executor
-            }
-        }
-    }
-
     override fun onEnable() {
         plugin = this
         Config.loadConfig()
         registerEvents()
-        registerCommands()
+        getCommand("el")?.apply {
+            setExecutor(MainCommand)
+            tabCompleter = MainCommand
+        }
     }
 }

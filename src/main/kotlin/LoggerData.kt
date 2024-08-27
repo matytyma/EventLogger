@@ -554,5 +554,11 @@ val loggers: Set<LoggerData<out Event>> = setOf(
     LoggerData(EntityTameEvent::class.java) {
         listOf("Owner" to owner)
     },
+    LoggerData(EntityTargetEvent::class.java) {
+        listOf(
+            "Target" to target,
+            "Reason" to reason,
+        )
+    },
     // endregion
 )

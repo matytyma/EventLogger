@@ -565,11 +565,21 @@ val loggers: Set<LoggerData<out Event>> = setOf(
         emptyList()
     },
     // endregion
+    // region EntityTeleportEvent
     GroupLoggerData(EntityTeleportEvent::class.java) {
         listOf(
             "From" to from,
             "To" to to,
         )
     },
+    LoggerData(EntityPortalEvent::class.java) {
+        listOf(
+            "Portal type" to portalType,
+            "Can create portal" to canCreatePortal,
+            "Creation radius" to creationRadius,
+            "Search radius" to searchRadius,
+        )
+    },
+    // endregion
     // endregion
 )

@@ -1,10 +1,12 @@
-# List of events to log, set to [] for none
-events: [
-
+# List of events to log, supports regex
+whitelist: [
+  .*,
 ]
 
-# Whether to whitelist the 'events' list or blacklist instead
-whitelist: true
+# List of events to exclude from logging, higher priority over whitelist
+blacklist: [
+
+]
 
 prefix:
   # MiniMessage-styled text, for more informations see https://docs.advntr.dev/minimessage/format.html

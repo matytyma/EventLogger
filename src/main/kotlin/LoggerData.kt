@@ -5,7 +5,7 @@ import dev.matytyma.eventlogger.Config.bottomBorder
 import dev.matytyma.eventlogger.Config.bottomLeftBorder
 import dev.matytyma.eventlogger.Config.bottomRightBorder
 import dev.matytyma.eventlogger.Config.leftBorder
-import dev.matytyma.eventlogger.Config.logger
+import dev.matytyma.eventlogger.Config.eventLogger
 import dev.matytyma.eventlogger.Config.rightBorder
 import dev.matytyma.eventlogger.Config.topBorder
 import dev.matytyma.eventlogger.Config.topLeftBorder
@@ -35,12 +35,12 @@ open class LoggerData<T : Event>(
             title.length + value.length
         }) + 2
 
-        logger.info("$topLeftBorder${topBorder.repeat((width - header.length) / 2)} $header ${topBorder.repeat((width - header.length + 1) / 2)}$topRightBorder")
+        eventLogger.info("$topLeftBorder${topBorder.repeat((width - header.length) / 2)} $header ${topBorder.repeat((width - header.length + 1) / 2)}$topRightBorder")
         eventProperties.forEach { (title: String, value: String) ->
             val lineWidth = title.length + value.length + 2
-            logger.info("$leftBorder $title: $value ${" ".repeat(width - lineWidth)}$rightBorder")
+            eventLogger.info("$leftBorder $title: $value ${" ".repeat(width - lineWidth)}$rightBorder")
         }
-        logger.info("$bottomLeftBorder${bottomBorder.repeat(width + 2)}$bottomRightBorder")
+        eventLogger.info("$bottomLeftBorder${bottomBorder.repeat(width + 2)}$bottomRightBorder")
     }
 
     @Suppress("UNCHECKED_CAST")

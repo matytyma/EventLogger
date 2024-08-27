@@ -580,6 +580,12 @@ val loggers: Set<LoggerData<out Event>> = setOf(
             "Search radius" to searchRadius,
         )
     },
+    LoggerData(EntityPortalExitEvent::class.java) {
+        listOf(
+            "After" to after,
+            "Before" to before,
+        )
+    },
     // endregion
     // endregion
 )

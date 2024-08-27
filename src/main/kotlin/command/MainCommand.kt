@@ -5,10 +5,8 @@ import org.bukkit.command.*
 
 
 object MainCommand : TabExecutor {
-    private const val COMMAND_NAME = "eventlogger"
-
     private val commands: Map<String, CommandExecutor>
-        get() = plugin.commands - COMMAND_NAME
+        get() = plugin.commands
     private val completers: Map<String, TabCompleter>
         get() = commands.filterValues { it is TabExecutor }.mapValues { it.value as TabCompleter }
 
@@ -18,7 +16,7 @@ object MainCommand : TabExecutor {
         label: String,
         args: Array<String>,
     ): Boolean = if (args.isEmpty()) false else {
-        commands["$COMMAND_NAME${args[0]}"]?.onCommand(sender, command, label, args.sliceArray(1..<args.size)) ?: false
+        commands[args[0]]?.onCommand(sender, command, label, args.sliceArray(1..<args.size)) ?: false
     }
 
     override fun onTabComplete(
@@ -27,6 +25,6 @@ object MainCommand : TabExecutor {
         label: String,
         args: Array<String>,
     ): List<String> = if (args.size == 1) {
-        commands.keys.map { it.removePrefix(COMMAND_NAME) }.filter { it.startsWith(args[0]) }
+        commands.keys.filter { it.startsWith(args[0]) }
     } else completers[args[0]]?.onTabComplete(sender, command, label, args) ?: emptyList()
 }

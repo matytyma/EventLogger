@@ -1,7 +1,6 @@
 package dev.matytyma.eventlogger
 
-import dev.matytyma.eventlogger.command.MainCommand
-import dev.matytyma.eventlogger.command.ReloadCommand
+import dev.matytyma.eventlogger.command.*
 import dev.matytyma.minekraft.plugin.on
 import net.kyori.adventure.text.minimessage.MiniMessage
 import org.bukkit.command.CommandExecutor
@@ -15,8 +14,8 @@ val mm: MiniMessage = MiniMessage.miniMessage()
 
 class EventLogger : JavaPlugin() {
     val commands: Map<String, CommandExecutor> = mapOf(
-        "eventlogger" to MainCommand,
-        "eventloggerreload" to ReloadCommand,
+        "reload" to ReloadCommand,
+        "whitelist" to WhitelistCommand,
     )
 
     fun registerEvents() {
@@ -27,10 +26,16 @@ class EventLogger : JavaPlugin() {
         }
     }
 
-    private fun registerCommand() = commands.forEach { (name: String, executor: CommandExecutor) ->
-        getCommand(name)?.setExecutor(executor)
-        if (executor is TabExecutor) {
-            getCommand(name)?.tabCompleter = executor
+    private fun registerCommands() {
+        getCommand("eventlogger")?.apply {
+            setExecutor(MainCommand)
+            tabCompleter = MainCommand
+        }
+        commands.forEach { (name: String, executor: CommandExecutor) ->
+            getCommand(name)?.setExecutor(executor)
+            if (executor is TabExecutor) {
+                getCommand(name)?.tabCompleter = executor
+            }
         }
     }
 
@@ -38,6 +43,6 @@ class EventLogger : JavaPlugin() {
         plugin = this
         Config.loadConfig()
         registerEvents()
-        registerCommand()
+        registerCommands()
     }
 }

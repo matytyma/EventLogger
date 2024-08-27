@@ -12,5 +12,5 @@ commands:
     description: Main command for EventLogger
     aliases: [ el ]
   eventloggerreload:
-    description: Reloads plugin configuration
+    description: Reloads plugin configuration and discards any dynamically changed settings
     aliases: [ elreload ]

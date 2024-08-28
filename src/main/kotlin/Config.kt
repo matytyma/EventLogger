@@ -52,20 +52,8 @@ object Config {
         plugin.reloadConfig()
         prefix = mm.deserialize(config.getString("prefix.general") ?: "[EventLogger] ")
         eventLogger = LoggerFactory.getLogger(config.getString("prefix.logging"))
-        whitelist = config.getStringList("whitelist").let {>
-            buildSet {
-                it.forEach {
-
-                }
-                if (loggers.any { it.eventClass.simpleName == it}) {
-                    plugin.slF4JLogger.warn("Logger for event '$it' does not exist, is it spelled right?")
-                    add(event)
-                } else {
-                    sender.sendPrefixedMessage("No logger found for $event")
-                }
-            }
-        }
-        blacklist = config.getStringList("blacklist").toSet()
+        whitelist = config.getStringList("whitelist").filterValidEvents()
+        blacklist = config.getStringList("blacklist").filterValidEvents()
 
         val format: ConfigurationSection? = config.getConfigurationSection("format")
 
@@ -91,6 +79,16 @@ object Config {
         bottomLeftBorder = border?.getChar("bottom-left") ?: bottomLeftBorder
         bottomBorder = border?.getChar("bottom") ?: bottomBorder
         bottomRightBorder = border?.getChar("bottom-right") ?: bottomRightBorder
+    }
+
+    private fun Collection<String>.filterValidEvents(): Set<String> = buildSet {
+        this@filterValidEvents.forEach { event: String ->
+            if (loggers.any { it.eventClass.simpleName == event }) {
+                add(event)
+            } else {
+                plugin.slF4JLogger.warn("Logger for event '$event' does not exist, is it spelled right?")
+            }
+        }
     }
 
     private fun Set<String>.mapEvents(): Set<LoggerData<*>> = this.flatMap { event: String ->

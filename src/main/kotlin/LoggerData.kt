@@ -648,5 +648,8 @@ val loggers: Set<LoggerData<*>> = setOf(
     LoggerData(ItemDespawnEvent::class.java) {
         listOf("Location" to location)
     },
+    LoggerData(ItemMergeEvent::class.java) {
+        listOf("Target" to target)
+    },
     // endregion
 )

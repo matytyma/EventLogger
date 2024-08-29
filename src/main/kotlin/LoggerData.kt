@@ -657,5 +657,11 @@ val loggers: Set<LoggerData<*>> = setOf(
             "Outcome" to outcome,
         )
     },
+    LoggerData(PigZombieAngerEvent::class.java) {
+        listOf(
+            "New anger" to newAnger,
+            "Target" to target,
+        )
+    },
     // endregion
 )

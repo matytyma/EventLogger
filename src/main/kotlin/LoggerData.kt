@@ -636,5 +636,11 @@ val loggers: Set<LoggerData<*>> = setOf(
     LoggerData(FireworkExplodeEvent::class.java) {
         emptyList()
     },
+    LoggerData(FoodLevelChangeEvent::class.java) {
+        listOf(
+            "Food level" to foodLevel,
+            "Item" to item
+        )
+    },
     // endregion
 )

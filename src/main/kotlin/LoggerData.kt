@@ -594,5 +594,8 @@ val loggers: Set<LoggerData<*>> = setOf(
     LoggerData(EntityToggleGlideEvent::class.java) {
         listOf("Is gliding" to isGliding)
     },
+    LoggerData(EntityToggleSwimEvent::class.java) {
+        listOf("Is swimming" to isSwimming)
+    },
     // endregion
 )

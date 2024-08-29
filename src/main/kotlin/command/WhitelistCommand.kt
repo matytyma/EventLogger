@@ -14,7 +14,7 @@ object WhitelistCommand : TabExecutor {
     ): Boolean {
         val oldEvents = events
         args.forEach { event ->
-            if (loggers.any { it.eventClass.simpleName == event}) {
+            if (loggers.any { it.eventClass.simpleName == event }) {
                 sender.sendPrefixedMessage("Successfully whitelisted $event")
                 whitelist += event
             } else {
@@ -30,5 +30,5 @@ object WhitelistCommand : TabExecutor {
         command: Command,
         label: String,
         args: Array<String>,
-    ): List<String> = (loggers.map { it.eventClass.simpleName } - whitelist + blacklist).filter { it.startsWith(args.last()) }
+    ): List<String> = loggers.map { it.eventClass.simpleName } - whitelist + blacklist
 }

@@ -24,7 +24,8 @@ object MainCommand : TabExecutor {
         command: Command,
         label: String,
         args: Array<String>,
-    ): List<String> = if (args.size == 1) {
-        commands.keys.filter { it.startsWith(args[0]) }
-    } else completers[args[0]]?.onTabComplete(sender, command, label, args) ?: emptyList()
+    ): List<String> = (if (args.size == 1) commands.keys
+    else completers[args[0]]?.onTabComplete(sender, command, label, args))?.filter {
+        it.startsWith(args.last())
+    } ?: emptyList()
 }

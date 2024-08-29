@@ -633,5 +633,8 @@ val loggers: Set<LoggerData<*>> = setOf(
             "Radius" to radius,
         )
     },
+    LoggerData(FireworkExplodeEvent::class.java) {
+        emptyList()
+    },
     // endregion
 )

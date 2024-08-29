@@ -651,5 +651,11 @@ val loggers: Set<LoggerData<*>> = setOf(
     LoggerData(ItemMergeEvent::class.java) {
         listOf("Target" to target)
     },
+    LoggerData(PiglinBarterEvent::class.java) {
+        listOf(
+            "Input" to input,
+            "Outcome" to outcome,
+        )
+    },
     // endregion
 )

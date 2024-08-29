@@ -627,5 +627,11 @@ val loggers: Set<LoggerData<*>> = setOf(
         listOf("Hand" to hand)
     },
     // endregion
+    LoggerData(ExplosionPrimeEvent::class.java) {
+        listOf(
+            "Fire" to fire,
+            "Radius" to radius,
+        )
+    },
     // endregion
 )

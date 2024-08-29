@@ -1,6 +1,7 @@
 package dev.matytyma.eventlogger
 
 import com.destroystokyo.paper.event.entity.EntityTeleportEndGatewayEvent
+import com.destroystokyo.paper.event.entity.EntityZapEvent
 import dev.matytyma.eventlogger.Config.bottomBorder
 import dev.matytyma.eventlogger.Config.bottomLeftBorder
 import dev.matytyma.eventlogger.Config.bottomRightBorder
@@ -597,5 +598,22 @@ val loggers: Set<LoggerData<*>> = setOf(
     LoggerData(EntityToggleSwimEvent::class.java) {
         listOf("Is swimming" to isSwimming)
     },
+    // region EntityTransformEvent
+    GroupLoggerData(EntityTransformEvent::class.java) {
+        listOf(
+            "Transformed entity" to transformedEntity,
+            "Transformed entities" to transformedEntities,
+            "Reason" to transformReason,
+        )
+    },
+    // region EntityZapEvent
+    GroupLoggerData(EntityZapEvent::class.java) {
+        listOf("Bolt" to bolt)
+    },
+    LoggerData(PigZapEvent::class.java) {
+        emptyList()
+    },
+    // endregion
+    // endregion
     // endregion
 )

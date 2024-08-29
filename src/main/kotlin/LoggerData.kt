@@ -645,5 +645,8 @@ val loggers: Set<LoggerData<*>> = setOf(
     LoggerData(HorseJumpEvent::class.java) {
         listOf("Power" to power)
     },
+    LoggerData(ItemDespawnEvent::class.java) {
+        listOf("Location" to location)
+    },
     // endregion
 )

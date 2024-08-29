@@ -17,6 +17,7 @@ import org.bukkit.event.block.*
 import org.bukkit.event.command.UnknownCommandEvent
 import org.bukkit.event.entity.*
 import org.bukkit.event.inventory.FurnaceStartSmeltEvent
+import org.bukkit.event.player.PlayerUnleashEntityEvent
 import kotlin.math.max
 
 open class LoggerData<T : Event>(
@@ -614,6 +615,17 @@ val loggers: Set<LoggerData<*>> = setOf(
         emptyList()
     },
     // endregion
+    // endregion
+    // region EntityUnleashEvent
+    GroupLoggerData(EntityUnleashEvent::class.java) {
+        listOf(
+            "Is drop leash" to isDropLeash,
+            "Reason" to reason,
+        )
+    },
+    LoggerData(PlayerUnleashEntityEvent::class.java) {
+        listOf("Hand" to hand)
+    },
     // endregion
     // endregion
 )

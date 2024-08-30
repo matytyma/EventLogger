@@ -12,6 +12,7 @@ import dev.matytyma.eventlogger.Config.topBorder
 import dev.matytyma.eventlogger.Config.topLeftBorder
 import dev.matytyma.eventlogger.Config.topRightBorder
 import io.papermc.paper.event.block.TargetHitEvent
+import io.papermc.paper.event.entity.WaterBottleSplashEvent
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.block.*
@@ -684,6 +685,18 @@ val loggers: Set<LoggerData<*>> = setOf(
             "Allows empty creation" to allowsEmptyCreation(),
         )
     },
+    // region
+    GroupLoggerData(PotionSplashEvent::class.java) {
+        listOf("Affected entities" to affectedEntities)
+    },
+    LoggerData(WaterBottleSplashEvent::class.java) {
+        listOf(
+            "To damage" to toDamage,
+            "To extinguish" to toExtinguish,
+            "To rehydrate" to toRehydrate,
+        )
+    },
+    // endregion
     LoggerData(TargetHitEvent::class.java) {
         listOf("Signal strength" to signalStrength)
     },

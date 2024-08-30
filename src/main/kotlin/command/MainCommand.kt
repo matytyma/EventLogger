@@ -1,14 +1,16 @@
 package dev.matytyma.eventlogger.command
 
-import dev.matytyma.eventlogger.plugin
 import org.bukkit.command.*
 
 
 object MainCommand : TabExecutor {
-    private val commands: Map<String, CommandExecutor>
-        get() = plugin.commands
+    private val subCommands: Map<String, CommandExecutor> = mapOf(
+        "reload" to ReloadCommand,
+        "whitelist" to WhitelistCommand,
+    )
+
     private val completers: Map<String, TabCompleter>
-        get() = commands.filterValues { it is TabExecutor }.mapValues { it.value as TabCompleter }
+        get() = subCommands.filterValues { it is TabExecutor }.mapValues { it.value as TabCompleter }
 
     override fun onCommand(
         sender: CommandSender,
@@ -16,7 +18,7 @@ object MainCommand : TabExecutor {
         label: String,
         args: Array<String>,
     ): Boolean = if (args.isEmpty()) false else {
-        commands[args[0]]?.onCommand(sender, command, label, args.sliceArray(1..<args.size)) ?: false
+        subCommands[args[0]]?.onCommand(sender, command, label, args.sliceArray(1..<args.size)) ?: false
     }
 
     override fun onTabComplete(
@@ -24,7 +26,7 @@ object MainCommand : TabExecutor {
         command: Command,
         label: String,
         args: Array<String>,
-    ): List<String> = (if (args.size == 1) commands.keys
+    ): List<String> = (if (args.size == 1) subCommands.keys
     else completers[args[0]]?.onTabComplete(sender, command, label, args))?.filter {
         it.startsWith(args.last())
     } ?: emptyList()

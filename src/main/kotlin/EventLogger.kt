@@ -17,10 +17,6 @@ var events: Set<LoggerData<*>> = emptySet()
 class EventLogger : JavaPlugin() {
     val listeners: MutableMap<LoggerData<*>, Listener> = mutableMapOf()
 
-    val commands: Map<String, CommandExecutor> = mapOf(
-        "reload" to ReloadCommand,
-        "whitelist" to WhitelistCommand,
-    )
 
     fun registerEvent(logger: LoggerData<*>) {
         listeners[logger] = plugin.on(logger.eventClass, EventPriority.MONITOR) {

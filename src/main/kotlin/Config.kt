@@ -1,11 +1,30 @@
 package dev.matytyma.eventlogger
 
+import com.akuleshov7.ktoml.annotations.TomlComments
+import kotlinx.serialization.Serializable
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger
 import org.bukkit.configuration.Configuration
 import org.bukkit.configuration.ConfigurationSection
 
-object Config {
+@Serializable
+data class Config(
+    @TomlComments("List of events to log")
+    val whitelist: Set<String> = emptySet(),
+    val blacklist: Set<String> = emptySet(),
+    val prefix: Prefix = Prefix(),
+
+) {
+
+}
+
+@Serializable
+data class Prefix(
+    val general: String = "<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray>",
+    val logging: String = "",
+)
+
+object OldConfig {
     // region Configuration variables
     private val config: Configuration
         get() = plugin.config

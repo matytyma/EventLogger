@@ -1,10 +1,9 @@
 package dev.matytyma.eventlogger
 
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.logger.slf4j.ComponentLogger
 import org.bukkit.configuration.Configuration
 import org.bukkit.configuration.ConfigurationSection
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 
 object Config {
     // region Configuration variables
@@ -12,7 +11,7 @@ object Config {
         get() = plugin.config
 
     lateinit var prefix: Component
-    lateinit var eventLogger: Logger
+    lateinit var eventLogger: ComponentLogger
 
     var whitelist: Set<String> = emptySet()
         set(value) {
@@ -51,7 +50,7 @@ object Config {
         plugin.saveDefaultConfig()
         plugin.reloadConfig()
         prefix = mm.deserialize(config.getString("prefix.general") ?: "[EventLogger] ")
-        eventLogger = LoggerFactory.getLogger(config.getString("prefix.logging"))
+        eventLogger = ComponentLogger.logger(config.getString("prefix.logging") ?: "")
         whitelist = config.getStringList("whitelist").filterValidEvents()
         blacklist = config.getStringList("blacklist").filterValidEvents()
 

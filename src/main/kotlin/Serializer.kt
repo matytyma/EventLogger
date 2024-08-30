@@ -37,7 +37,7 @@ fun Any?.serialize(): String {
     return if (properties.isEmpty()) toString() else this!!.formatClass(properties)
 }
 
-private fun Any.formatClass(properties: List<Pair<String, Any?>>): String = "${javaClass.alteredName}${
+private fun Any.formatClass(properties: List<Pair<String, Any?>>): String = "<color:$GREEN>${javaClass.alteredName}</color>${
     properties.joinToString(
         separator = classSeparator, prefix = classPrefix, postfix = classPostfix
     ) { (name: String, value: Any?) -> "$name$fieldSeparator${value.formatValue()}" }

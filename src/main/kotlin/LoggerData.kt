@@ -40,12 +40,12 @@ open class LoggerData<T : Event>(
             title.length + value.length
         }) + 2
 
-        eventLogger.info("$topLeftBorder${topBorder.repeat((width - header.length) / 2)} $header ${topBorder.repeat((width - header.length + 1) / 2)}$topRightBorder")
+        eventLogger.info(mm.deserialize("$topLeftBorder${topBorder.repeat((width - header.length) / 2)} $header ${topBorder.repeat((width - header.length + 1) / 2)}$topRightBorder"))
         eventProperties.forEach { (title: String, value: String) ->
             val lineWidth = title.length + value.length + 2
-            eventLogger.info("$leftBorder $title: $value ${" ".repeat(width - lineWidth)}$rightBorder")
+            eventLogger.info(mm.deserialize("$leftBorder $title: $value ${" ".repeat(width - lineWidth)}$rightBorder"))
         }
-        eventLogger.info("$bottomLeftBorder${bottomBorder.repeat(width + 2)}$bottomRightBorder")
+        eventLogger.info(mm.deserialize("$bottomLeftBorder${bottomBorder.repeat(width + 2)}$bottomRightBorder"))
     }
 
     @Suppress("UNCHECKED_CAST")

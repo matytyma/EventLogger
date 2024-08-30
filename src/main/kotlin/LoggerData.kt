@@ -12,6 +12,7 @@ import dev.matytyma.eventlogger.Config.topBorder
 import dev.matytyma.eventlogger.Config.topLeftBorder
 import dev.matytyma.eventlogger.Config.topRightBorder
 import io.papermc.paper.event.block.TargetHitEvent
+import io.papermc.paper.event.entity.EntityDyeEvent
 import io.papermc.paper.event.entity.WaterBottleSplashEvent
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
@@ -447,6 +448,17 @@ val loggers: Set<LoggerData<*>> = setOf(
     LoggerData(EntityDropItemEvent::class.java) {
         listOf("Item dropped" to itemDrop)
     },
+    // region EntityDyeEvent
+    GroupLoggerData(EntityDyeEvent::class.java) {
+        listOf(
+            "Color" to color,
+            "Player" to player,
+        )
+    },
+    LoggerData(SheepDyeWoolEvent::class.java) {
+        emptyList()
+    },
+    // endregion
     LoggerData(EntityEnterBlockEvent::class.java) {
         listOf("Block" to block)
     },

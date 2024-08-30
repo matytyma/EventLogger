@@ -665,7 +665,7 @@ val loggers: Set<LoggerData<*>> = setOf(
             "Target" to target,
         )
     },
-    // region
+    // region ProjectileHitEvent
     GroupLoggerData(ProjectileHitEvent::class.java) {
         listOf(
             "Hit entity" to hitEntity,
@@ -685,7 +685,7 @@ val loggers: Set<LoggerData<*>> = setOf(
             "Allows empty creation" to allowsEmptyCreation(),
         )
     },
-    // region
+    // region PotionSplashEvent
     GroupLoggerData(PotionSplashEvent::class.java) {
         listOf("Affected entities" to affectedEntities)
     },
@@ -700,5 +700,6 @@ val loggers: Set<LoggerData<*>> = setOf(
     LoggerData(TargetHitEvent::class.java) {
         listOf("Signal strength" to signalStrength)
     },
+    // endregion
     // endregion
 )

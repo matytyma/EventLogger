@@ -15,6 +15,14 @@ import org.bukkit.entity.Item
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
+const val GREEN = "#a9dc76"
+const val GRAY = "#939293"
+const val WHITE = "#fcfcfa"
+const val RED = "#ff6188"
+const val PURPLE = "#ab9df2"
+const val YELLOW = "#ffd866"
+const val CYAN = "#78dce8"
+
 fun Any?.serialize(): String {
     val properties: List<Pair<String, Any?>> = when (this) {
         is Block -> listOf("position" to listOf(x, y, z), "type" to type, "data" to blockData)

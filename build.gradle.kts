@@ -1,5 +1,6 @@
 val kotlinVersion = runCatching { properties["kotlinVersion"] as String }.getOrElse { error("Invalid Kotlin version") }
 val minecraftVersion = runCatching { properties["minecraftVersion"] as String }.getOrElse { error("Invalid Minecraft version") }
+val ktomlVersion = runCatching { properties["ktomlVersion"] as String }.getOrElse { error("Invalid KToml version") }
 
 plugins {
     kotlin("jvm") version "2.0.0"
@@ -16,6 +17,8 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:$minecraftVersion-R0.1-SNAPSHOT")
+    compileOnly("com.akuleshov7:ktoml-core:$ktomlVersion")
+    compileOnly("com.akuleshov7:ktoml-file:$ktomlVersion")
     implementation("dev.matytyma.minekraft:minekraft-api:1.0-SNAPSHOT")
 }
 

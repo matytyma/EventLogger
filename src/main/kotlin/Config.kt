@@ -1,6 +1,7 @@
 package dev.matytyma.eventlogger
 
 import com.akuleshov7.ktoml.annotations.TomlComments
+import com.akuleshov7.ktoml.annotations.TomlInlineTable
 import kotlinx.serialization.Serializable
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger
@@ -11,18 +12,27 @@ import org.bukkit.configuration.ConfigurationSection
 data class Config(
     @TomlComments("List of events to log")
     val whitelist: Set<String> = emptySet(),
+    @TomlComments("List of events to exclude from logging, higher priority over whitelist")
     val blacklist: Set<String> = emptySet(),
     val prefix: Prefix = Prefix(),
-
+    val format: Format = Format(),
 ) {
+    @Serializable
+    data class Prefix(
+        @TomlComments(
+            " MiniMessage-styled text, for more informations see https://docs.advntr.dev/minimessage/format.html",
+            "and for preview https://webui.advntr.dev, sed for all kinds of plugin output except for event logging"
+        )
+        val general: String = "<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray>",
+        val logging: String = "",
+    )
 
+    @Serializable
+    data class Format(
+        // TODO
+    )
 }
 
-@Serializable
-data class Prefix(
-    val general: String = "<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray>",
-    val logging: String = "",
-)
 
 object OldConfig {
     // region Configuration variables
@@ -58,7 +68,7 @@ object OldConfig {
     var topLeftBorder: Char = '┏'
     var topBorder: Char = '━'
     var topRightBorder: Char = '┓'
-    var leftBorder: Char = '┃'
+    var leftBorder: Char = '┃'￼
     var rightBorder: Char = '┃'
     var bottomLeftBorder: Char = '┗'
     var bottomBorder: Char = '━'
@@ -66,6 +76,7 @@ object OldConfig {
     // endregion
 
     fun loadConfig() {
+
         plugin.saveDefaultConfig()
         plugin.reloadConfig()
         prefix = mm.deserialize(config.getString("prefix.general") ?: "[EventLogger] ")

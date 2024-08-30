@@ -11,6 +11,7 @@ import dev.matytyma.eventlogger.Config.rightBorder
 import dev.matytyma.eventlogger.Config.topBorder
 import dev.matytyma.eventlogger.Config.topLeftBorder
 import dev.matytyma.eventlogger.Config.topRightBorder
+import io.papermc.paper.event.block.TargetHitEvent
 import org.bukkit.event.Cancellable
 import org.bukkit.event.Event
 import org.bukkit.event.block.*
@@ -662,6 +663,29 @@ val loggers: Set<LoggerData<*>> = setOf(
             "New anger" to newAnger,
             "Target" to target,
         )
+    },
+    // region
+    GroupLoggerData(ProjectileHitEvent::class.java) {
+        listOf(
+            "Hit entity" to hitEntity,
+            "Hit block" to hitBlock,
+            "Hit block face" to hitBlockFace,
+        )
+    },
+    LoggerData(ExpBottleEvent::class.java) {
+        listOf(
+            "Experience" to experience,
+            "Show effect" to showEffect,
+        )
+    },
+    LoggerData(LingeringPotionSplashEvent::class.java) {
+        listOf(
+            "Area effect cloud" to areaEffectCloud,
+            "Allows empty creation" to allowsEmptyCreation(),
+        )
+    },
+    LoggerData(TargetHitEvent::class.java) {
+        listOf("Signal strength" to signalStrength)
     },
     // endregion
 )

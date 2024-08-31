@@ -3,7 +3,7 @@
     <stop offset="0" stop-color="#00F0A0"/>
     <stop offset="100%" stop-color="#00A0F0"/>
   </linearGradient>
-  <path filter="url(#shadow)" fill="url(#gradient)" stroke="white" d="
+  <path fill="url(#gradient)" stroke="white" d="
     M 0,50
     C 0,10 10,0 50,0
       90,0 100,10 100,50

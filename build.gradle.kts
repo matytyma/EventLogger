@@ -37,6 +37,11 @@ tasks.processResources {
     val props = mapOf(
         "version" to version,
         "apiVersion" to paperVersion,
+        "libraries" to listOf(
+            "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
+            "com.akuleshov7:ktoml-core-jvm:$ktomlVersion",
+            "com.akuleshov7:ktoml-file-jvm:$ktomlVersion",
+        ).joinToString(",\n  ", "", "")
     )
     inputs.properties(props)
     filteringCharset = "UTF-8"

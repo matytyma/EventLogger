@@ -6,8 +6,8 @@ import org.bukkit.event.HandlerList
 
 object ReloadCommand : TabExecutor {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<String>): Boolean {
-        Config.loadConfig()
         HandlerList.unregisterAll(plugin)
+        plugin.loadConfig()
         plugin.registerEvents()
         sender.sendPrefixedMessage("Reload complete.")
         return true

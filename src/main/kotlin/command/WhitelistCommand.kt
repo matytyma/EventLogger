@@ -1,8 +1,6 @@
 package dev.matytyma.eventlogger.command
 
 import dev.matytyma.eventlogger.*
-import dev.matytyma.eventlogger.Config.blacklist
-import dev.matytyma.eventlogger.Config.whitelist
 import org.bukkit.command.*
 
 object WhitelistCommand : TabExecutor {
@@ -16,7 +14,7 @@ object WhitelistCommand : TabExecutor {
         args.forEach { event ->
             if (loggers.any { it.eventClass.simpleName == event }) {
                 sender.sendPrefixedMessage("Successfully whitelisted $event")
-                whitelist += event
+                cfg = cfg.copy(whitelist = cfg.whitelist + event)
             } else {
                 sender.sendPrefixedMessage("Logger for event '$event' does not exist, is it spelled right?")
             }
@@ -30,5 +28,5 @@ object WhitelistCommand : TabExecutor {
         command: Command,
         label: String,
         args: Array<String>,
-    ): List<String> = loggers.map { it.eventClass.simpleName } - whitelist + blacklist
+    ): List<String> = loggers.map { it.eventClass.simpleName } - cfg.whitelist + cfg.blacklist
 }

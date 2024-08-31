@@ -9,14 +9,6 @@ import org.bukkit.entity.Item
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 
-const val GREEN = "#a9dc76"
-const val GRAY = "#939293"
-const val WHITE = "#fcfcfa"
-const val RED = "#ff6188"
-const val PURPLE = "#ab9df2"
-const val YELLOW = "#ffd866"
-const val CYAN = "#78dce8"
-
 fun Any?.serialize(): String {
     val properties: List<Pair<String, Any?>> = when (this) {
         is Block -> listOf("position" to listOf(x, y, z), "type" to type, "data" to blockData)
@@ -32,9 +24,9 @@ fun Any?.serialize(): String {
 }
 
 private fun Any.formatClass(properties: List<Pair<String, Any?>>): String = with(cfg.classFormat) {
-    "${javaClass.alteredName}${
+    "${javaClass.alteredName.color(theme.`class`)})${
         properties.joinToString(
-            separator = separator, prefix = prefix, postfix = postfix
+            separator.color(theme.special), prefix.color(theme.special), postfix.color(theme.special)
         ) { (name: String, value: Any?) -> "$name${cfg.fieldFormat.separator}${value.formatValue()}" }
     }"
 }
@@ -63,3 +55,5 @@ private val Class<*>.alteredName: String
     get() = if (cfg.classFormat.alterNames && packageName.startsWith("org.bukkit")) {
         simpleName.removePrefix("Craft")
     } else simpleName
+
+private fun Any?.color(color: String) = "<color:$color>$this</color>"

@@ -5,8 +5,7 @@ import com.akuleshov7.ktoml.TomlOutputConfig
 import com.akuleshov7.ktoml.file.TomlFileReader
 import com.akuleshov7.ktoml.file.TomlFileWriter
 import dev.matytyma.eventlogger.command.MainCommand
-import dev.matytyma.eventlogger.config.Config
-import dev.matytyma.eventlogger.config.Theme
+import dev.matytyma.eventlogger.config.*
 import dev.matytyma.minekraft.plugin.on
 import kotlinx.serialization.serializer
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -39,8 +38,13 @@ class EventLogger : JavaPlugin() {
         }
     }
 
-    private fun saveResource(filePath: String, data: Any?) {
+    private inline fun <reified T> saveResource(filePath: String, data: T) {
         TomlFileWriter(outputConfig = TomlOutputConfig(TomlIndentation.NONE)).encodeToFile(serializer(), data, filePath)
+    }
+
+    fun loadConfig() {
+        cfg = loadResource("config.toml") { Config() }
+        theme = loadResource("theme.toml") { Theme() }
     }
 
     fun registerEvent(logger: LoggerData<*>) {
@@ -53,8 +57,8 @@ class EventLogger : JavaPlugin() {
 
     override fun onEnable() {
         plugin = this
-        cfg = loadResource("config.toml") { Config() }
-        theme = loadResource("theme.toml") { Theme() }
+        loadConfig()
+        rebuildEvents()
         registerEvents()
         getCommand("el")?.apply {
             setExecutor(MainCommand)

@@ -87,7 +87,13 @@ data class BorderFormat(
 
 @Serializable
 data class Theme(
-
+    val `class`: String = "#a9dc76",
+    val enum: String = "#78dce8",
+    val variable: String = "#fcfcfa",
+    val special: String = "#939293",
+    val equals: String = "#ff6188",
+    val number: String = "#ab9df2",
+    val string: String = "#ffd866"
 )
 
 private fun Collection<String>.filterValidEvents(shouldLog: Boolean): Set<String> = buildSet {
@@ -114,6 +120,6 @@ private fun Set<String>.mapEvents(): Set<LoggerData<*>> = this.flatMap { event: 
     }
 }.toSet()
 
-private fun rebuildEvents() {
+fun rebuildEvents() {
     events = (cfg.whitelist.mapEvents() - cfg.blacklist.mapEvents()).filterNot { it is AbstractLoggerData }.toSet()
 }

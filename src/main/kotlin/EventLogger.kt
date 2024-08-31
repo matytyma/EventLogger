@@ -33,13 +33,14 @@ class EventLogger : JavaPlugin() {
             TomlFileReader.decodeFromFile(serializer(), file.absolutePath)
         } else {
             val resource = default()
-            saveResource(file.absolutePath, resource)
+            saveResource(file, resource)
             return resource
         }
     }
 
-    private inline fun <reified T> saveResource(filePath: String, data: T) {
-        TomlFileWriter(outputConfig = TomlOutputConfig(TomlIndentation.NONE)).encodeToFile(serializer(), data, filePath)
+    private inline fun <reified T> saveResource(file: File, data: T) {
+        val path = file.apply { mkdirs(); createNewFile() }.absolutePath
+        TomlFileWriter(outputConfig = TomlOutputConfig(TomlIndentation.NONE)).encodeToFile(serializer(), data, path)
     }
 
     fun loadConfig() {

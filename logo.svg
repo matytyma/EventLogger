@@ -1,5 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="-10 -10 120 120">
-  <path fill="#00F0A0" d="
+  <linearGradient id="grad1" x1="0" y1="0" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#00F0A0" />
+    <stop offset="100%" stop-color="#00A0F0" />
+  </linearGradient>
+  <path fill="url(#grad1)" d="
     M 0,50
     C 0,10 10,0 50,0
       90,0 100,10 100,50
@@ -31,4 +35,8 @@
     l 0,-5
     C 76,80 80,76, 80,50
     "/>
+  <text fill="white" font-family="sans" font-weight="bold" text-rendering="optimizeLegibility" font-size="36"
+        text-anchor="middle" x="50" y="63">
+    EL
+  </text>
 </svg>

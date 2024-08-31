@@ -32,24 +32,24 @@ data class Config(
 @Serializable
 data class Logging(
     @TomlComments(
-        " MiniMessage-styled text, for more informations see https://docs.advntr.dev/minimessage/format.html",
-        "and for preview https://webui.advntr.dev, sed for all kinds of plugin output except for event logging"
+        "MiniMessage-styled text, for more information see https://docs.advntr.dev/minimessage/format.html",
+        "and for preview https://webui.advntr.dev",
+        "Used for all kinds of plugin output except for event logging",
     )
-    @Serializable(with = MiniMessageSerializer::class)
-    val plugin: Component = mm.deserialize("<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray>"),
+    @SerialName("plugin")
+    val pluginRaw: String ="<gray>[<gradient:#00F0A0:#00A0F0>EventLogger</gradient>]</gray>",
     @Serializable(with = ComponentLoggerAsPrefixSerializer::class)
     val events: ComponentLogger = ComponentLogger.logger(""),
-)
+) {
+    val plugin: Component
+        get() = mm.deserialize(pluginRaw)
+}
 
 @Serializable
 data class Format(
-    @TomlInlineTable
     val `class`: ClassFormat = ClassFormat(),
-    @TomlInlineTable
     val array: ArrayFormat = ArrayFormat(),
-    @TomlInlineTable
     val field: FieldFormat = FieldFormat(),
-    @TomlInlineTable
     val border: BorderFormat = BorderFormat(),
 )
 

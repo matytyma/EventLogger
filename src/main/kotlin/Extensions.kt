@@ -7,4 +7,4 @@ fun Char.repeat(n: Int): String = toString().repeat(n)
 
 fun Audience.sendPrefixedMessage(s: String) = sendPrefixedMessage(mm.deserialize(s))
 
-fun Audience.sendPrefixedMessage(c: Component) = sendMessage(plugin.config.logging.plugin.appendSpace().append(c))
+fun Audience.sendPrefixedMessage(c: Component) = sendMessage(cfg.logging.plugin.appendSpace().append(c))

@@ -1,8 +1,15 @@
 # EventLogger
 Minecraft plugin for inspecting data of events that occur
 
+> [!NOTE]  
+> This project is quickly evolving and I can't keep the README up-to-date with every update,
+> if you'd like to build/use this project, contact me using any of the following methods  
+> [Discord](https://discord.com/users/803549121247838209) - `matytyma`  
+> [HackClub Slack](https://hackclub.slack.com/team/U078H6SG59Q) - `@matytyma`
+
 ## Installation
-Either download a prebuilt JAR from [releases](https://github.com/matytyma/EventLogger/releases/latest) or [build](#building) it from source
+Either download a prebuilt JAR from [releases](https://github.com/matytyma/EventLogger/releases/latest)
+or [build](#building) it from source
 
 ## Configuration
 `whitelist` - Whether to log just `events` or the rest instead
@@ -26,30 +33,24 @@ Either download a prebuilt JAR from [releases](https://github.com/matytyma/Event
 
 ### Examples
 Log all block-related events
-```yaml
-whitelist: true
-
-events: [
-  BlockEvent
-]
+```toml
+whitelist = [ 'BlockEvent' ]
 ```
 Log all inventory-related events, block-related events and player movement event
-```yaml
-whitelist: true
-
-events: [
-  InventoryEvent,
-  BlockEvent,
-  PlayerMoveEvent
+```toml
+whitelist =  [
+    'InventoryEvent',
+    'BlockEvent',
+    'PlayerMoveEvent',
 ]
 ```
 Log all events except player-related ones and inventory open event
-```yaml
-whitelist: false
+```toml
+whitelist = [ '*' ]
 
-events: [
-  PlayerEvent,
-  InventoryOpenEvent
+blacklist = [
+    'PlayerEvent',
+    'InventoryOpenEvent',
 ]
 ```
 

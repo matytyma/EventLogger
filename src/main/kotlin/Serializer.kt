@@ -1,6 +1,7 @@
 package dev.matytyma.eventlogger
 
 import dev.matytyma.eventlogger.config.ArrayFormat
+import dev.matytyma.eventlogger.config.ClassFormat
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.block.Block
@@ -8,6 +9,7 @@ import org.bukkit.block.data.BlockData
 import org.bukkit.entity.Item
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import java.io.File.separator
 
 fun Any?.serialize(): String {
     val properties: List<Pair<String, Any?>> = when (this) {
@@ -23,18 +25,18 @@ fun Any?.serialize(): String {
     return if (properties.isEmpty()) toString() else this!!.formatClass(properties)
 }
 
-private fun Any.formatClass(properties: List<Pair<String, Any?>>): String = with(cfg.classFormat) {
+private fun Any.formatClass(properties: List<Pair<String, Any?>>): String = cfg.classFormat.let { it: ClassFormat ->
     "${javaClass.alteredName.color(theme.`class`)})${
         properties.joinToString(
-            separator.color(theme.special), prefix.color(theme.special), postfix.color(theme.special)
-        ) { (name: String, value: Any?) -> "$name${cfg.fieldFormat.separator}${value.formatValue()}" }
+            separator.color(theme.special), it.prefix.color(theme.special), it.postfix.color(theme.special)
+        ) { (name: String, value: Any?) -> "${name.color(theme.variable)}${cfg.fieldFormat.separator.color(theme.equals)}${value.formatValue()}" }
     }"
 }
 
 private fun Any?.formatValue(): String = cfg.arrayFormat.let { fmt: ArrayFormat ->
     when (this) {
-        is Number -> toString()
-        is CharSequence -> toString()
+        is Number -> color(theme.number)
+        is CharSequence -> color(theme.string)
         is Boolean -> toString()
         is Collection<*> -> joinToString(fmt.separator, fmt.prefix, fmt.postfix) { it.formatValue() }
         is Array<*> -> joinToString(fmt.separator, fmt.prefix, fmt.postfix) { it.formatValue() }
@@ -46,7 +48,7 @@ private fun Any?.formatValue(): String = cfg.arrayFormat.let { fmt: ArrayFormat 
         is FloatArray -> joinToString(fmt.separator, fmt.prefix, fmt.postfix)
         is DoubleArray -> joinToString(fmt.separator, fmt.prefix, fmt.postfix)
         is BooleanArray -> joinToString(fmt.separator, fmt.prefix, fmt.postfix)
-        is Enum<*> -> "${javaClass.alteredName}.$name"
+        is Enum<*> -> "${javaClass.alteredName.color(theme.enum)}.${name.color(theme.variable)}"
         else -> serialize()
     }
 }

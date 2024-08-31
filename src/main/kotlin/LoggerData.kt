@@ -2,15 +2,6 @@ package dev.matytyma.eventlogger
 
 import com.destroystokyo.paper.event.entity.EntityTeleportEndGatewayEvent
 import com.destroystokyo.paper.event.entity.EntityZapEvent
-import dev.matytyma.eventlogger.Config.bottomBorder
-import dev.matytyma.eventlogger.Config.bottomLeftBorder
-import dev.matytyma.eventlogger.Config.bottomRightBorder
-import dev.matytyma.eventlogger.Config.leftBorder
-import dev.matytyma.eventlogger.Config.eventLogger
-import dev.matytyma.eventlogger.Config.rightBorder
-import dev.matytyma.eventlogger.Config.topBorder
-import dev.matytyma.eventlogger.Config.topLeftBorder
-import dev.matytyma.eventlogger.Config.topRightBorder
 import io.papermc.paper.event.block.TargetHitEvent
 import io.papermc.paper.event.entity.EntityDyeEvent
 import io.papermc.paper.event.entity.WaterBottleSplashEvent
@@ -39,13 +30,15 @@ open class LoggerData<T : Event>(
         val width = max(header.length, eventProperties.maxOf { (title: String, value: String) ->
             title.length + value.length
         }) + 2
-
-        eventLogger.info(mm.deserialize("$topLeftBorder${topBorder.repeat((width - header.length) / 2)} $header ${topBorder.repeat((width - header.length + 1) / 2)}$topRightBorder"))
-        eventProperties.forEach { (title: String, value: String) ->
-            val lineWidth = title.length + value.length + 2
-            eventLogger.info(mm.deserialize("$leftBorder $title: $value ${" ".repeat(width - lineWidth)}$rightBorder"))
+        val logger = cfg.logging.events
+        cfg.format.border.let {
+            eventLogger.info(mm.deserialize("$topLeftBorder${topBorder.repeat((width - header.length) / 2)} $header ${topBorder.repeat((width - header.length + 1) / 2)}$topRightBorder"))
+            eventProperties.forEach { (title: String, value: String) ->
+                val lineWidth = title.length + value.length + 2
+                eventLogger.info(mm.deserialize("$leftBorder $title: $value ${" ".repeat(width - lineWidth)}$rightBorder"))
+            }
+            eventLogger.info(mm.deserialize("$bottomLeftBorder${bottomBorder.repeat(width + 2)}$bottomRightBorder"))
         }
-        eventLogger.info(mm.deserialize("$bottomLeftBorder${bottomBorder.repeat(width + 2)}$bottomRightBorder"))
     }
 
     @Suppress("UNCHECKED_CAST")

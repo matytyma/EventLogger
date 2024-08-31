@@ -1,12 +1,6 @@
 package dev.matytyma.eventlogger
 
-import dev.matytyma.eventlogger.Config.arrayPostfix
-import dev.matytyma.eventlogger.Config.arrayPrefix
-import dev.matytyma.eventlogger.Config.arraySeparator
-import dev.matytyma.eventlogger.Config.classPostfix
-import dev.matytyma.eventlogger.Config.classPrefix
-import dev.matytyma.eventlogger.Config.classSeparator
-import dev.matytyma.eventlogger.Config.fieldSeparator
+import dev.matytyma.eventlogger.config.ArrayFormat
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.block.Block
@@ -37,31 +31,35 @@ fun Any?.serialize(): String {
     return if (properties.isEmpty()) toString() else this!!.formatClass(properties)
 }
 
-private fun Any.formatClass(properties: List<Pair<String, Any?>>): String = "<color:$GREEN>${javaClass.alteredName}</color>${
-    properties.joinToString(
-        separator = classSeparator, prefix = classPrefix, postfix = classPostfix
-    ) { (name: String, value: Any?) -> "$name$fieldSeparator${value.formatValue()}" }
-}"
+private fun Any.formatClass(properties: List<Pair<String, Any?>>): String = with(cfg.classFormat) {
+    "${javaClass.alteredName}${
+        properties.joinToString(
+            separator = separator, prefix = prefix, postfix = postfix
+        ) { (name: String, value: Any?) -> "$name${cfg.fieldFormat.separator}${value.formatValue()}" }
+    }"
+}
 
-private fun Any?.formatValue(): String = when (this) {
-    is Number -> toString()
-    is CharSequence -> toString()
-    is Boolean -> toString()
-    is Collection<*> -> joinToString(arraySeparator, arrayPrefix, arrayPostfix) { it.formatValue() }
-    is Array<*> -> joinToString(arraySeparator, arrayPrefix, arrayPostfix) { it.formatValue() }
-    is ByteArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
-    is CharArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
-    is ShortArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
-    is IntArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
-    is LongArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
-    is FloatArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
-    is DoubleArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
-    is BooleanArray -> joinToString(arraySeparator, arrayPrefix, arrayPostfix)
-    is Enum<*> -> "${javaClass.alteredName}.$name"
-    else -> serialize()
+private fun Any?.formatValue(): String = cfg.arrayFormat.let { fmt: ArrayFormat ->
+    when (this) {
+        is Number -> toString()
+        is CharSequence -> toString()
+        is Boolean -> toString()
+        is Collection<*> -> joinToString(fmt.separator, fmt.prefix, fmt.postfix) { it.formatValue() }
+        is Array<*> -> joinToString(fmt.separator, fmt.prefix, fmt.postfix) { it.formatValue() }
+        is ByteArray -> joinToString(fmt.separator, fmt.prefix, fmt.postfix)
+        is CharArray -> joinToString(fmt.separator, fmt.prefix, fmt.postfix)
+        is ShortArray -> joinToString(fmt.separator, fmt.prefix, fmt.postfix)
+        is IntArray -> joinToString(fmt.separator, fmt.prefix, fmt.postfix)
+        is LongArray -> joinToString(fmt.separator, fmt.prefix, fmt.postfix)
+        is FloatArray -> joinToString(fmt.separator, fmt.prefix, fmt.postfix)
+        is DoubleArray -> joinToString(fmt.separator, fmt.prefix, fmt.postfix)
+        is BooleanArray -> joinToString(fmt.separator, fmt.prefix, fmt.postfix)
+        is Enum<*> -> "${javaClass.alteredName}.$name"
+        else -> serialize()
+    }
 }
 
 private val Class<*>.alteredName: String
-    get() = if (Config.alterClassNames && packageName.startsWith("org.bukkit")) {
+    get() = if (cfg.classFormat.alterNames && packageName.startsWith("org.bukkit")) {
         simpleName.removePrefix("Craft")
     } else simpleName

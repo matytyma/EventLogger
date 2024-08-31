@@ -49,6 +49,8 @@ data class Format(
     val array: ArrayFormat = ArrayFormat(),
     @TomlInlineTable
     val field: FieldFormat = FieldFormat(),
+    @TomlInlineTable
+    val border: BorderFormat = BorderFormat(),
 )
 
 @Serializable
@@ -69,6 +71,18 @@ data class ArrayFormat(
 @Serializable
 data class FieldFormat(
     val separator: String = "=",
+)
+
+@Serializable
+data class BorderFormat(
+    val topLeft: String = "┏",
+    val top: String = "━",
+    val topRight: String = "┓",
+    val left: String = "┃",
+    val right: String = "┃",
+    val bottomLeft: String = "┗",
+    val bottom: String = "━",
+    val bottomRight: String = "┛",
 )
 
 private fun Collection<String>.filterValidEvents(shouldLog: Boolean): Set<String> = buildSet {

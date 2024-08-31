@@ -5,7 +5,8 @@ api-version: '$apiVersion'
 load: STARTUP
 author: matytyma
 libraries: [
-  org.jetbrains.kotlin:kotlin-stdlib:2.0.0
+  org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion,
+  com.akuleshov7:ktoml-file:$ktomlVersion
 ]
 commands:
   eventlogger:

@@ -31,13 +31,15 @@ open class LoggerData<T : Event>(
             title.length + value.length
         }) + 2
         val logger = cfg.logging.events
-        cfg.format.border.let {
-            eventLogger.info(mm.deserialize("$topLeftBorder${topBorder.repeat((width - header.length) / 2)} $header ${topBorder.repeat((width - header.length + 1) / 2)}$topRightBorder"))
+        with(cfg.format.border) {
+            val lines = mutableListOf<String>()
+            lines.add("$topLeft${top.repeat((width - header.length) / 2)} $header ${top.repeat((width - header.length + 1) / 2)}$topRight")
             eventProperties.forEach { (title: String, value: String) ->
                 val lineWidth = title.length + value.length + 2
-                eventLogger.info(mm.deserialize("$leftBorder $title: $value ${" ".repeat(width - lineWidth)}$rightBorder"))
+                lines.add("$left $title: $value ${" ".repeat(width - lineWidth)}$right")
             }
-            eventLogger.info(mm.deserialize("$bottomLeftBorder${bottomBorder.repeat(width + 2)}$bottomRightBorder"))
+            lines.add("$bottomLeft${bottom.repeat(width + 2)}$bottomRight")
+            lines.forEach { logger.info(mm.deserialize(it)) }
         }
     }
 

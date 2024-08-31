@@ -1,13 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="-50 -50 150 150">
-  <path fill="#00F0A0" stroke="none" d="
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="-10 -10 120 120">
+  <path fill="#00F0A0" d="
     M 0,50
     C 0,10 10,0 50,0
       90,0 100,10 100,50
       100,90 90,100 50,100
       10,100 0,90 0,50
-    ">
-  </path>
-  <path fill="#000000" stroke="none" d="
+    "/>
+  <path fill="black" d="
     M 10,50
     C 10,18 18,10 50,10
       82,10 90,18 90,50
@@ -23,5 +22,23 @@
       18,90 10,82 10,50
     ">
   </path>
+    "/>
+  <clipPath id="left">
+    <rect width="40" height="40"/>
+  </clipPath>
+  <path fill="white" clip-path="url(#left)" d="
+    M 15,50
+    C 15,21.25 21.25,15 50,15
+    l 0,5
+    C 24,20 20,24, 20,50
+    "/>
+  <clipPath id="right">
+    <rect x="60" y="60" width="40" height="40"/>
+  </clipPath>
+  <path fill="white" clip-path="url(#right)" d="
+    M 85,50
+    C 85,78.75 78.75,85 50,85
+    l 0,-5
+    C 76,80 80,76, 80,50
+    "/>
 </svg>
-

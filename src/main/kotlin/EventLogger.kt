@@ -1,9 +1,12 @@
 package dev.matytyma.eventlogger
 
+import com.akuleshov7.ktoml.TomlIndentation
+import com.akuleshov7.ktoml.TomlOutputConfig
 import com.akuleshov7.ktoml.file.TomlFileReader
 import com.akuleshov7.ktoml.file.TomlFileWriter
 import dev.matytyma.eventlogger.command.MainCommand
 import dev.matytyma.eventlogger.config.Config
+import dev.matytyma.eventlogger.config.Theme
 import dev.matytyma.minekraft.plugin.on
 import kotlinx.serialization.serializer
 import net.kyori.adventure.text.minimessage.MiniMessage
@@ -16,6 +19,8 @@ lateinit var plugin: EventLogger
 
 lateinit var cfg: Config
 
+lateinit var theme: Theme
+
 val mm: MiniMessage = MiniMessage.miniMessage()
 
 var events: Set<LoggerData<*>> = emptySet()
@@ -23,20 +28,19 @@ var events: Set<LoggerData<*>> = emptySet()
 class EventLogger : JavaPlugin() {
     private val listeners: MutableMap<LoggerData<*>, Listener> = mutableMapOf()
 
-    fun loadConfig() {
-        config
-        val file = File(dataFolder, "config.toml")
-        if (file.exists()) {
-            cfg = TomlFileReader.decodeFromFile(serializer(), file.absolutePath)
+    private inline fun <reified T> loadResource(fileName: String, default: () -> T): T {
+        val file = File(dataFolder, fileName)
+        return if (file.exists()) {
+            TomlFileReader.decodeFromFile(serializer(), file.absolutePath)
         } else {
-            cfg = Config()
-            saveConfig()
+            val resource = default()
+            saveResource(file.absolutePath, resource)
+            return resource
         }
     }
 
-    override fun saveConfig() {
-        val filePath = File(dataFolder.also(File::mkdirs), "config.toml").absolutePath
-        TomlFileWriter().encodeToFile(serializer(), cfg, filePath)
+    private fun saveResource(filePath: String, data: Any?) {
+        TomlFileWriter(outputConfig = TomlOutputConfig(TomlIndentation.NONE)).encodeToFile(serializer(), data, filePath)
     }
 
     fun registerEvent(logger: LoggerData<*>) {
@@ -49,7 +53,8 @@ class EventLogger : JavaPlugin() {
 
     override fun onEnable() {
         plugin = this
-        loadConfig()
+        cfg = loadResource("config.toml") { Config() }
+        theme = loadResource("theme.toml") { Theme() }
         registerEvents()
         getCommand("el")?.apply {
             setExecutor(MainCommand)

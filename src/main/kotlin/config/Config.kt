@@ -85,6 +85,11 @@ data class BorderFormat(
     val bottomRight: String = "┛",
 )
 
+@Serializable
+data class Theme(
+
+)
+
 private fun Collection<String>.filterValidEvents(shouldLog: Boolean): Set<String> = buildSet {
     this@filterValidEvents.forEach { event: String ->
         if (loggers.any { it.eventClass.simpleName == event }) {

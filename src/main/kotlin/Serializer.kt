@@ -26,9 +26,9 @@ fun Any?.serialize(): String {
 }
 
 private fun Any.formatClass(properties: List<Pair<String, Any?>>): String = cfg.classFormat.let { it: ClassFormat ->
-    "${javaClass.alteredName.color(theme.`class`)})${
+    "${javaClass.alteredName.color(theme.`class`)}${
         properties.joinToString(
-            separator.color(theme.special), it.prefix.color(theme.special), it.postfix.color(theme.special)
+            it.separator.color(theme.special), it.prefix.color(theme.special), it.postfix.color(theme.special)
         ) { (name: String, value: Any?) -> "${name.color(theme.variable)}${cfg.fieldFormat.separator.color(theme.equals)}${value.formatValue()}" }
     }"
 }
@@ -58,4 +58,4 @@ private val Class<*>.alteredName: String
         simpleName.removePrefix("Craft")
     } else simpleName
 
-private fun Any?.color(color: String) = "<color:$color>$this</color>"
+private fun Any?.color(color: String) = "<color:$color>$this</color>".also { println(it) }

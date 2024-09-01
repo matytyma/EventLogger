@@ -74,3 +74,6 @@ and for Windows
 ./gradlew.bat build
 ```
 Output JAR will be located in `build/libs` directory
+
+## Screenshots
+![Screenshot of BlocCanBuildEvent log](https://cloud-hxb9nujx3-hack-club-bot.vercel.app/0image-tnmopzt1l-transformed.png)

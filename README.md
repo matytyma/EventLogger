@@ -1,3 +1,5 @@
+<img align="right" src="logo.svg" alt="TOML logo">
+
 # EventLogger
 Minecraft plugin for inspecting data of events that occur
 

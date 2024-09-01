@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="-5 -5 110 110">
+  <linearGradient id="gradient" x2="100%" y2="100%">
+    <stop offset="0" stop-color="#00F0A0"/>
+    <stop offset="100%" stop-color="#00A0F0"/>
+  </linearGradient>
+  <path fill="url(#gradient)" stroke="white" d="
+    M 0,50
+    C 0,10 10,0 50,0
+      90,0 100,10 100,50
+      100,90 90,100 50,100
+      10,100 0,90 0,50
+    "/>
+  <path fill="black" d="
+    M 10,50
+    C 10,18 18,10 50,10
+      82,10 90,18 90,50
+      90,82 82,90 50,90
+      18,90 10,82 10,50
+    "/>
+  <clipPath id="leftTop">
+    <rect width="40" height="40"/>
+  </clipPath>
+  <path fill="white" clip-path="url(#leftTop)" d="
+    M 15,50
+    C 15,21.25 21.25,15 50,15
+    l 0,5
+    C 24,20 20,24, 20,50
+    "/>
+  <clipPath id="rightBottom">
+    <rect x="60" y="60" width="40" height="40"/>
+  </clipPath>
+  <path fill="white" clip-path="url(#rightBottom)" d="
+    M 85,50
+    C 85,78.75 78.75,85 50,85
+    l 0,-5
+    C 76,80 80,76, 80,50
+    "/>
+  <text fill="white" font-family="sans" font-weight="bold" font-size="36" text-anchor="middle" x="50" y="63">EL</text>
+</svg>

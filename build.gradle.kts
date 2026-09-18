@@ -1,7 +1,8 @@
 plugins {
-    kotlin("jvm") version "2.0.0"
-    kotlin("plugin.serialization") version "2.0.0"
-    id("com.gradleup.shadow") version "8.3.0"
+    kotlin("jvm") version "2.4.10"
+    kotlin("plugin.serialization") version "2.4.10"
+    id("com.gradleup.shadow") version "9.6.1"
+    idea
 }
 
 group = "dev.matytyma.eventlogger"
@@ -12,18 +13,15 @@ repositories {
     maven("https://repo.papermc.io/repository/maven-public/")
 }
 
-val kotlinVersion = runCatching { properties["kotlinVersion"] as String }.getOrElse { error("Invalid Kotlin version") }
-val paperVersion = runCatching { properties["paperVersion"] as String }.getOrElse { error("Invalid Minecraft version") }
-val ktomlVersion = runCatching { properties["ktomlVersion"] as String }.getOrElse { error("Invalid KToml version") }
+val kotlinVersion = runCatching { property("kotlinVersion").toString() }.getOrElse { error("Invalid Kotlin version") }
+val paperVersion = runCatching { property("paperVersion").toString() }.getOrElse { error("Invalid Minecraft version") }
+val ktomlVersion = runCatching { property("ktomlVersion").toString() }.getOrElse { error("Invalid KToml version") }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:$paperVersion-R0.1-SNAPSHOT")
-    compileOnly("com.akuleshov7:ktoml-core:$ktomlVersion")
-    compileOnly("com.akuleshov7:ktoml-file:$ktomlVersion")
-    implementation("dev.matytyma.minekraft:minekraft-api:1.0-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:$paperVersion.build.+")
 }
 
-val targetJavaVersion = 21
+val targetJavaVersion = 25
 
 kotlin {
     jvmToolchain(targetJavaVersion)
@@ -41,7 +39,7 @@ tasks.processResources {
             "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion",
             "com.akuleshov7:ktoml-core-jvm:$ktomlVersion",
             "com.akuleshov7:ktoml-file-jvm:$ktomlVersion",
-        ).joinToString(",\n  ", "", "")
+        ).joinToString(",\n  ")
     )
     inputs.properties(props)
     filteringCharset = "UTF-8"
@@ -51,8 +49,11 @@ tasks.processResources {
 }
 
 tasks.shadowJar {
+    duplicatesStrategy = DuplicatesStrategy.WARN
     minimize()
-    dependencies {
-        include(dependency("dev.matytyma.minekraft:minekraft-api"))
-    }
+}
+
+idea.module {
+    isDownloadSources = true
+    isDownloadJavadoc = true
 }
